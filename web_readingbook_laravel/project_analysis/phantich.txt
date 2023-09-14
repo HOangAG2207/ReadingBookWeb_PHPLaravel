@@ -1,5 +1,7 @@
-I. Chức năng
-1. Giao diện người dùng
+I. CHỨC NĂNG
+    1. Giao diện người dùng
     -
-2. Trang admin
+    2. Trang admin
     -
+II. CƠ SỞ DỮ LIỆU
+    1.
