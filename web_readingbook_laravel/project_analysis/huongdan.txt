@@ -1,4 +1,4 @@
 1. chạy lệnh: *php artisan serve* để thực hiện chạy server
     - port mặc định là 8000
     - nếu không chạy được serve do trùng port 8000
-    - thực hiện lệnh: *php artisan serve --port=8001* (trong đó 8001 là port tự đặt để không bị trùng port 8000)
+    - thực hiện lệnh: *php artisan serve --port=8002* (trong đó 8002 là port tự đặt để không bị trùng port 8000)
