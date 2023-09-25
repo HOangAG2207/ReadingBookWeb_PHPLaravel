@@ -1,0 +1,13 @@
+2. CÀI ĐẶT:
+    - cài đặt php
+    - cài đặt composer
+    - cài đặt xampp
+    - tạo database ten *webdocsach*
+    - tạo file .env -> copy nội dung của file .env.example vào .env
+    - mở file .env -> thay đổi dòng
+    - Node & npm lastest version\
+    - chạy lệnh: npm install để cài đặt node modules
+1. CHẠY LỆNH: *php artisan serve* để thực hiện chạy server
+    - port mặc định là 8000
+    - nếu không chạy được serve do trùng port 8000
+    - thực hiện lệnh: *php artisan serve --port=8001* (trong đó 8001 là port tự đặt để không bị trùng port 8000)
