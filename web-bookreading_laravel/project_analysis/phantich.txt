@@ -1,0 +1,17 @@
+I. CHỨC NĂNG
+    1. Giao diện người dùng
+    -
+    2. Trang admin
+    -
+II. CƠ SỞ DỮ LIỆU
+    1. book_category
+        - id -> integer
+        - category_name -> varchar(255)
+        - category_slug -> varchar(255)
+        - category_description -> text(255)
+        - category_image -> varchar(255)
+        - category_status -> tinyInteger -> default('0')
+        - created_by -> integer
+        - created_at -> timestamps
+        - updated_at -> timestamps
+    2. 
