@@ -34,6 +34,9 @@
             <!-- @include('layouts.include.admin_footer') -->
         </div>
     </div>
+    <!-- yield -->
+    @yield('image_zoom')
+    @yield('deleteConfirm');
 </body>
 
 </html>

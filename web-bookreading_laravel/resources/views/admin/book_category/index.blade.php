@@ -36,13 +36,11 @@
                             <a href="" class="fw-bold text-decoration-none text-primary">{{ $cate->category_name }}</a>
                             <span class="text-decoration-none text-secondary">#{{ $cate->category_slug }}</span>
                         </td>
-                        <td class="px-3">{{ $cate->category_description }}</td>
+                        <td class="px-3" style="display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">{{ $cate->category_description }}</td>
                         <td class="px-3 text-center">
-                            @if($cate->category_image==null)
-                            <img src="{{ asset('uploads/no_image.jpg') }}" width="60px" height="60px" class="img-thumbnail border-info" alt="img">
-                            @else
-                            <img src="{{ asset('uploads/images/category/'.$cate->category_image) }}" width="50px" height="50px" class="img-thumbnail border-info" alt="img">
-                            @endif
+                            <img id="" src="{{ $cate->category_image==null ? 
+                                        asset('uploads/no_image.jpg') 
+                                        : asset('uploads/images/category/'.$cate->category_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $cate->category_name }}" />
                         </td>
                         <td class="px-3">@if($cate->category_state==1)
                             <span class="text-success"><i class="fa-solid fa-circle-check"></i> Hiện</span>
@@ -53,10 +51,12 @@
                         <td class="text-center">{{ $cate->created_by }}</td>
                         <td class="text-center">{{ $cate->updated_at }}</td>
                         <td class="text-center">
-                            <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i>
+                            <a href="{{ url('admin/edit_book_category/'.$cate->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
+                            <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
-                            <button type="submit" class="btn mt-1"><i class="fa-solid fa-trash-can text-danger h5"></i>
+                            <!-- <a href="{{ url('admin/delete_book_category/'.$cate->id) }}" class="btn"><i class="fa-solid fa-trash-can text-danger h5"></i></a> -->
+                            <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
                         </td>
                     </tr>
                     @endforeach
@@ -66,4 +66,89 @@
     </div>
 
 </div>
+@endsection
+
+@section('image_zoom')
+
+<!-- Modal -->
+<div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content w-100">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title" id="modal title">Modal title</h5> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{asset('uploads/no_image.jpg')}}" alt="modal img" class="modal-img w-75 img-thumnail border-info border rounded">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- style -->
+<style>
+    #gallery-modal .modal-img {
+        width: 100%;
+    }
+</style>
+<!-- scripts -->
+<script>
+    document.addEventListener("click", function(e) {
+        if (e.target.classList.contains("gallery-item")) {
+            const src = e.target.getAttribute("src");
+            document.querySelector(".modal-img").src = src;
+            const myModal = new bootstrap.Modal(document.getElementById('gallery-modal'));
+            myModal.show();
+        };
+    });
+</script>
+
+@endsection
+
+@section('deleteConfirm')
+<!-- Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="exampleModalLabel">XÁC NHẬN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="">Bạn có chắc chắn muốn xóa?</div>
+
+            </div>
+            <form action="{{ url('admin/delete_book_category') }}" method="POST">
+                @csrf
+
+                <input type="hidden" name="category_delete_id" id="category_id">
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Có</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // $(document).ready(function(){
+    //     $('.deleteCategoryBtn').click(function(e){
+    //         e.preventDefault();
+
+    //         var category_id = $(this).val();
+    //         $('#delete-modal').modal('show');
+    //     });
+    // });
+    document.addEventListener("click", function(e) {
+        if (e.target.classList.contains("deleteCategoryBtn")) {
+            e.preventDefault();
+
+            $cate_id = e.target.getAttribute("value");
+            document.querySelector("#category_id").value = $cate_id;
+            const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
+            myModal.show();
+        }
+    });
+</script>
+
 @endsection
