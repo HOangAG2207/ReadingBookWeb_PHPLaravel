@@ -8,10 +8,19 @@ II. CƠ SỞ DỮ LIỆU
         - id -> integer
         - category_name -> varchar(255)
         - category_slug -> varchar(255)
-        - category_description -> text(255)
+        - category_description -> text
         - category_image -> varchar(255)
         - category_status -> tinyInteger -> default('0')
         - created_by -> integer
         - created_at -> timestamps
         - updated_at -> timestamps
-    2. 
+    2. book_author
+        - id -> integer
+        - author_name -> varchar(255)
+        - author_slug -> varchar(255)
+        - author_gender -> tinyInteger -> default('0-nữ, 1-nam')
+        - author_overview -> text
+        - author_image -> varchar(255)
+        - author_status -> tinyInteger -> default('0')
+        - created_at -> timestamps
+        - updated_at -> timestamps

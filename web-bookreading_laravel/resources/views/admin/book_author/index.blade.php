@@ -1,67 +1,70 @@
 @extends('layouts.admin')
 
-@section('title','Quản lý Sách - Thể loại')
+@section('title','Quản lý Sách - Tác giả')
 
 @section('admin_content')
 <div class="container-fluid px-4">
-    <h2 class="mt-4 text-success">Thể loại Sách<span class="text-info h4"> > </span><span class="h5 text-secondary fw-normal">Xem Danh sách</span></h2>
+    <h2 class="mt-4 text-success">Tác giả<span class="text-info h4"> > </span><span class="h5 text-secondary fw-normal">Xem Danh sách</span></h2>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active"></li>
     </ol>
     <div class="card mt-4">
         <div class="card-header">
-            <a href="{{ url('admin/create_book_category') }}" class="btn btn-primary btn-md float-end"><i class="fa-solid fa-plus"></i> Thêm mới</a>
+            <a href="{{ url('admin/create_book_author') }}" class="btn btn-primary btn-md float-end"><i class="fa-solid fa-plus"></i> Thêm mới</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-hover table-sm mb-0">
                 <thead>
                     <tr class="text-center align-middle text-uppercase table-warning">
                         <th width="5%">#</th>
-                        <th width="20%">Tên loại</th>
-                        <th>Mô tả</th>
+                        <th width="20%">Tên tác giả</th>
+                        <th width="5%">Giới<br>tính</th>
+                        <th>Tổng quan</th>
                         <th width="10%">Hình ảnh</th>
                         <th width="10%">Trạng thái</th>
-                        <th width="10%">Người tạo</th>
                         <th width="10%">Ngày<br>cập nhật</th>
                         <th width="5%">Sửa</th>
                         <th width="5%">Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data_cate as $value =>$cate)
+                    @foreach($data_author as $value =>$author)
                     <tr class="align-middle">
                         <td class="text-center">
                             @if($loop->iteration < 10) 0{{ $loop->iteration }} @else {{ $loop->iteration }} @endif </td>
                         <td class="px-3 text-primary">
-                            <a href="" class="fw-bold text-decoration-none text-primary">{{ $cate->category_name }}</a>
-                            <span class="text-decoration-none text-secondary">#{{ $cate->category_slug }}</span>
+                            <a href="" class="fw-bold text-decoration-none text-primary">{{ $author->author_name }}</a>
+                            <span class="text-decoration-none text-secondary">#{{ $author->author_slug }}</span>
+                        </td>
+                        <td class="text-center">@if($author->author_gender==1)
+                            <span class="">Nam</span>
+                            @else
+                            <span class="">Nữ</span>
+                            @endif
                         </td>
                         <td class="px-3">
                             <a style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;">
-                                {{ $cate->category_description }}
+                                {{ $author->author_overview }}
                             </a>
-                            <!-- @if($cate->category_description!=null)<button class="btn border-0 text-decoration-underline text-primary float-end">Đọc thêm</button>@endif -->
                         </td>
                         <td class="px-3 text-center">
-                            <img id="" src="{{ $cate->category_image==null ? 
-                                        asset('uploads/no_image.jpg') 
-                                        : asset('uploads/images/category/'.$cate->category_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $cate->category_name }}" />
+                            <img id="" src="{{ $author->author_image==null ? 
+                                        ($author->author_gender==1 ? asset('uploads/male_no_image.png'):asset('uploads/female_no_image.png'))
+                                        : asset('uploads/images/author/'.$author->author_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $author->author_name }}" />
                         </td>
-                        <td class="px-3">@if($cate->category_state==1)
+                        <td class="text-center">@if($author->author_state==1)
                             <span class="text-success"><i class="fa-solid fa-circle-check"></i> Hiện</span>
                             @else
                             <span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Ẩn</span>
                             @endif
                         </td>
-                        <td class="text-center">{{ $cate->created_by }}</td>
-                        <td class="text-center">{{ $cate->updated_at }}</td>
+                        <td class="text-center">{{ $author->updated_at }}</td>
                         <td class="text-center">
-                            <a href="{{ url('admin/edit_book_category/'.$cate->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
+                            <a href="{{ url('admin/edit_book_author/'.$author->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
                             <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
-                            <!-- <a href="{{ url('admin/delete_book_category/'.$cate->id) }}" class="btn"><i class="fa-solid fa-trash-can text-danger h5"></i></a> -->
-                            <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
+                            <button type="button" class="btn deleteAuthorBtn" value="{{ $author->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
                         </td>
                     </tr>
                     @endforeach
@@ -122,10 +125,10 @@
                 <div class="">Bạn có chắc chắn muốn xóa?</div>
 
             </div>
-            <form action="{{ url('admin/delete_book_category') }}" method="POST">
+            <form action="{{ url('admin/delete_book_author') }}" method="POST">
                 @csrf
 
-                <input type="hidden" name="category_delete_id" id="category_id">
+                <input type="hidden" name="author_delete_id" id="author_id">
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Có</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
@@ -145,11 +148,11 @@
     //     });
     // });
     document.addEventListener("click", function(e) {
-        if (e.target.classList.contains("deleteCategoryBtn")) {
+        if (e.target.classList.contains("deleteAuthorBtn")) {
             e.preventDefault();
 
-            $cate_id = e.target.getAttribute("value");
-            document.querySelector("#category_id").value = $cate_id;
+            $author_id = e.target.getAttribute("value");
+            document.querySelector("#author_id").value = $author_id;
             const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
             myModal.show();
         }

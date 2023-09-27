@@ -22,7 +22,7 @@
                 @csrf
                 <div class="row mb-3">
                     <!-- input category -->
-                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-8 col-md-6 col-sm-12">
                         <label for="category_name" class="form-label fw-bold">Tên thể loại<span class="text-danger">*</span></label>
                         <input placeholder="Gợi ý: Thể thao, đời sống, tâm lý,..." name="category_name" type="text" class="form-control @error('category_name') is-invalid @enderror" value="{{ old('category_name') }}">
                         @error('category_name')
@@ -35,7 +35,7 @@
                         <input name="category_slug" type="text" class="form-control">
                     </div> -->
                     <!-- input state -->
-                    <div class="form-group col-lg-4 col-md-12 col-sm-12">
+                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
                         <label for="" class="form-label fw-bold">Trạng thái<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <label class="input-group-text" for="category_state">Kích hoạt</label>
@@ -58,7 +58,6 @@
                 <!-- input image -->
                 <div class="form-group mb-3">
                     <label for="category_image" class="form-label fw-bold">Hình ảnh</label>
-<<<<<<< HEAD
                     <input name="category_image" type="file" class="form-control @error('category_image') is-invalid @enderror">
                     @error('category_image')
                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -67,13 +66,6 @@
                 <!-- save button -->
                 <div class="form-group">
                     <button type="submit" name="create_book_category" class="btn btn-success "><i class="fa-solid fa-check"></i> Lưu thông tin</button>
-=======
-                    <input name="category_image" type="file" class="form-control">
-                </div>
-                <!-- save button -->
-                <div class="form-group">
-                    <button type="submit" name="create_bookcategory" class="btn btn-success "><i class="fa-solid fa-check"></i> Lưu thông tin</button>
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
                 </div>
             </form>
         </div>

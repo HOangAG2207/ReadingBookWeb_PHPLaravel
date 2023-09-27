@@ -3,28 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-
 use Illuminate\Http\Request;
 
 use App\Models\BookCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\File;
-=======
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
 
 class BookCategoryController extends Controller
 {
     # GET - all list
     public function index()
     {
-<<<<<<< HEAD
         $data_cate = BookCategory::orderBy('updated_at', 'desc')->get();
-=======
-        $data_cate = BookCategory::orderBy('updated_at','desc')->get();
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
         return view('admin.book_category.index')->with(compact('data_cate'));
     }
 
@@ -39,19 +30,11 @@ class BookCategoryController extends Controller
     {
         $request->validate(
             [
-<<<<<<< HEAD
                 'category_name' => ['required', 'max:255', 'min:5', 'unique:book_category'],
                 'category_slug' => [''],
                 'category_description' => [''],
                 'category_state' => ['required'],
                 'category_image' => ['mimes:jpeg,png,jpg,gif,svg', 'image']
-=======
-                'category_name' => ['required','max:255','min:5','unique:book_category'],
-                'category_slug' => [''],
-                'category_description' => [''],
-                'category_state' => ['required'],
-                'category_image' => ['mimes:jpeg,png,jpg,gif,svg','max:2048', 'image']
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
             ],
             [
                 'category_name.required' => 'Trường này bắt buộc phải nhập',
@@ -59,10 +42,7 @@ class BookCategoryController extends Controller
                 'category_name.unique' => 'Thể loại *:input* đã tồn tại',
 
                 'category_state.required' => 'Trạng thái chưa được chọn',
-<<<<<<< HEAD
                 'category_image.mimes' => 'Hình ảnh phải có đuôi mở rộng: .jpeg, .png, .jpg, .gif, .svg',
-=======
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
             ],
         );
         // $data = $request->all();
@@ -73,10 +53,7 @@ class BookCategoryController extends Controller
         $category->category_description = $request->category_description;
 
         if ($request->hasfile('category_image')) {
-<<<<<<< HEAD
 
-=======
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
             $file = $request->file('category_image');
 
             date_default_timezone_set("Asia/Ho_Chi_Minh");
@@ -91,7 +68,6 @@ class BookCategoryController extends Controller
         $category->created_by = Auth::user()->id;
         $category->save();
 
-<<<<<<< HEAD
         return redirect('admin/create_book_category')->with('message', 'Thêm thành công');
     }
 
@@ -167,8 +143,5 @@ class BookCategoryController extends Controller
         else{
             return redirect('admin/book_category')->with('message', 'Xóa thất bại');
         }
-=======
-        return redirect('admin/create_book_category')->with('message', 'Add successfully');
->>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
     }
 }
