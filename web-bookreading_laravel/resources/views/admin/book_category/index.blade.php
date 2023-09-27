@@ -36,11 +36,21 @@
                             <a href="" class="fw-bold text-decoration-none text-primary">{{ $cate->category_name }}</a>
                             <span class="text-decoration-none text-secondary">#{{ $cate->category_slug }}</span>
                         </td>
+<<<<<<< HEAD
                         <td class="px-3" style="display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">{{ $cate->category_description }}</td>
                         <td class="px-3 text-center">
                             <img id="" src="{{ $cate->category_image==null ? 
                                         asset('uploads/no_image.jpg') 
                                         : asset('uploads/images/category/'.$cate->category_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $cate->category_name }}" />
+=======
+                        <td class="px-3">{{ $cate->category_description }}</td>
+                        <td class="px-3 text-center">
+                            @if($cate->category_image==null)
+                            <img src="{{ asset('uploads/no_image.jpg') }}" width="60px" height="60px" class="img-thumbnail border-info" alt="img">
+                            @else
+                            <img src="{{ asset('uploads/images/category/'.$cate->category_image) }}" width="50px" height="50px" class="img-thumbnail border-info" alt="img">
+                            @endif
+>>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
                         </td>
                         <td class="px-3">@if($cate->category_state==1)
                             <span class="text-success"><i class="fa-solid fa-circle-check"></i> Hiện</span>
@@ -51,12 +61,19 @@
                         <td class="text-center">{{ $cate->created_by }}</td>
                         <td class="text-center">{{ $cate->updated_at }}</td>
                         <td class="text-center">
+<<<<<<< HEAD
                             <a href="{{ url('admin/edit_book_category/'.$cate->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
                             <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
                             <!-- <a href="{{ url('admin/delete_book_category/'.$cate->id) }}" class="btn"><i class="fa-solid fa-trash-can text-danger h5"></i></a> -->
                             <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
+=======
+                            <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i>
+                        </td>
+                        <td class="text-center">
+                            <button type="submit" class="btn mt-1"><i class="fa-solid fa-trash-can text-danger h5"></i>
+>>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
                         </td>
                     </tr>
                     @endforeach
@@ -66,6 +83,7 @@
     </div>
 
 </div>
+<<<<<<< HEAD
 @endsection
 
 @section('image_zoom')
@@ -151,4 +169,6 @@
     });
 </script>
 
+=======
+>>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
 @endsection

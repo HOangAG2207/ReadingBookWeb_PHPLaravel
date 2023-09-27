@@ -58,6 +58,7 @@
                 <!-- input image -->
                 <div class="form-group mb-3">
                     <label for="category_image" class="form-label fw-bold">Hình ảnh</label>
+<<<<<<< HEAD
                     <input name="category_image" type="file" class="form-control @error('category_image') is-invalid @enderror">
                     @error('category_image')
                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
@@ -66,6 +67,13 @@
                 <!-- save button -->
                 <div class="form-group">
                     <button type="submit" name="create_book_category" class="btn btn-success "><i class="fa-solid fa-check"></i> Lưu thông tin</button>
+=======
+                    <input name="category_image" type="file" class="form-control">
+                </div>
+                <!-- save button -->
+                <div class="form-group">
+                    <button type="submit" name="create_bookcategory" class="btn btn-success "><i class="fa-solid fa-check"></i> Lưu thông tin</button>
+>>>>>>> 54660d33b2df892d825845612208dd80d6dbef08
                 </div>
             </form>
         </div>
