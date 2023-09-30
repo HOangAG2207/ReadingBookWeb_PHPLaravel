@@ -20,18 +20,25 @@
                         <th width="20%">Tên loại</th>
                         <th>Mô tả</th>
                         <th width="10%">Hình ảnh</th>
-                        <th width="10%">Trạng thái</th>
-                        <th width="10%">Người tạo</th>
+                        <th width="15%">Trạng thái</th>
+                        <th width="5%">Người<br>tạo</th>
                         <th width="10%">Ngày<br>cập nhật</th>
                         <th width="5%">Sửa</th>
                         <th width="5%">Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($data_cate->count() == 0)
+                    <tr>
+                        <td colspan="5">Danh sách chưa có tác giả nào được thêm.</td>
+                    </tr>
+                    @endif
                     @foreach($data_cate as $value =>$cate)
                     <tr class="align-middle">
                         <td class="text-center">
-                            @if($loop->iteration < 10) 0{{ $loop->iteration }} @else {{ $loop->iteration }} @endif </td>
+                            {{ $value + $data_cate->firstItem() }}
+                            <!-- @if($loop->iteration < 10) 0{{ $loop->iteration }} @else {{ $loop->iteration }} @endif  -->
+                        </td>
                         <td class="px-3 text-primary">
                             <a href="" class="fw-bold text-decoration-none text-primary">{{ $cate->category_name }}</a>
                             <span class="text-decoration-none text-secondary">#{{ $cate->category_slug }}</span>
@@ -47,21 +54,31 @@
                                         asset('uploads/no_image.jpg') 
                                         : asset('uploads/images/category/'.$cate->category_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $cate->category_name }}" />
                         </td>
-                        <td class="px-3">@if($cate->category_state==1)
+                        <td class="text-center form-switch">
+                            @if($cate->category_state==1)
+                            <span class="text-success"><i class="fa-solid fa-circle-check"></i> Kích hoạt</span>
+                            @else
+                            <span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Không kích hoạt</span>
+                            @endif
+                            <div class="">
+                                <input type="checkbox" data-id="{{ $cate->id }}" name="category_state" class="js-switch" {{ $cate->category_state==1 ? 'checked':''}}>
+                            </div>
+                        </td>
+                        <!-- <td class="px-3">@if($cate->category_state==1)
                             <span class="text-success"><i class="fa-solid fa-circle-check"></i> Hiện</span>
                             @else
                             <span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Ẩn</span>
                             @endif
-                        </td>
-                        <td class="text-center">{{ $cate->created_by }}</td>
+                        </td> -->
+                        <td class="text-center">{{ $cate->created_by }}{{ $cate->id }}</td>
                         <td class="text-center">{{ $cate->updated_at }}</td>
                         <td class="text-center">
                             <a href="{{ url('admin/edit_book_category/'.$cate->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
                             <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
-                            <!-- <a href="{{ url('admin/delete_book_category/'.$cate->id) }}" class="btn"><i class="fa-solid fa-trash-can text-danger h5"></i></a> -->
-                            <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
+                            <button type="button" class="btn delete-category" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i></button>
+                            <!-- <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i> -->
                         </td>
                     </tr>
                     @endforeach
@@ -69,13 +86,15 @@
             </table>
         </div>
     </div>
-
+    <div class="mt-2">
+        {{ $data_cate->links('layouts.paginate') }}
+    </div>
 </div>
 @endsection
 
 @section('image_zoom')
 
-<!-- Modal -->
+<!-- Modal zoom image-->
 <div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content w-100">
@@ -95,7 +114,7 @@
         width: 100%;
     }
 </style>
-<!-- scripts -->
+<!-- scripts zoom image-->
 <script>
     document.addEventListener("click", function(e) {
         if (e.target.classList.contains("gallery-item")) {
@@ -110,8 +129,9 @@
 @endsection
 
 @section('deleteConfirm')
-<!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -120,39 +140,80 @@
             </div>
             <div class="modal-body">
                 <div class="">Bạn có chắc chắn muốn xóa?</div>
-
             </div>
-            <form action="{{ url('admin/delete_book_category') }}" method="POST">
-                @csrf
-
-                <input type="hidden" name="category_delete_id" id="category_id">
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Có</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                </div>
-            </form>
+            <input type="hidden" id="category_id">
+            <div class="modal-footer">
+                <a href="javascript:void(1)" class="btn btn-danger delete_category_btn">Có</a>
+                <!-- <button type="button" class="btn btn-danger delete_category_btn"></button> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+            </div>
         </div>
     </div>
 </div>
 
+
 <script>
-    // $(document).ready(function(){
-    //     $('.deleteCategoryBtn').click(function(e){
+    // JavaScript to handle the delete action
+    $(document).on('click', '.delete-category', function(e) {
+        e.preventDefault();
+        $cate_id = $(this).val();
+
+        $('#category_id').val($cate_id);
+        $('#deleteModal').modal('show');
+    });
+    $(document).on('click', '.delete_category_btn', function(e) {
+        e.preventDefault();
+
+        $cate_id = $('#category_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'DELETE',
+            url: '/admin/delete_book_category/' + $cate_id,
+            success: function(response) {
+                console.log(response);
+                $('#deleteModal').modal('hide');
+            }
+        });
+        location.reload();
+    });
+    // document.addEventListener("click", function(e) {
+    //     if (e.target.classList.contains("deleteCategoryBtn")) {
     //         e.preventDefault();
 
-    //         var category_id = $(this).val();
-    //         $('#delete-modal').modal('show');
-    //     });
+    //         $cate_id = e.target.getAttribute("value");
+    //         document.querySelector("#category_id").value = $cate_id;
+    //         const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
+    //         myModal.show();
+    //     }
     // });
-    document.addEventListener("click", function(e) {
-        if (e.target.classList.contains("deleteCategoryBtn")) {
-            e.preventDefault();
-
-            $cate_id = e.target.getAttribute("value");
-            document.querySelector("#category_id").value = $cate_id;
-            const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
-            myModal.show();
-        }
+</script>
+<!-- script change author statuss -->
+<script>
+    let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+    elems.forEach(function(html) {
+        let switchery = new Switchery(html, {
+            size: 'small'
+        });
+    });
+    $(document).ready(function() {
+        $('.js-switch').change(function() {
+            let status = $(this).prop('checked') === true ? 1 : 0;
+            let cateId = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route("update_state_book_category") }}',
+                data: {
+                    'category_state': status,
+                    'category_id': cateId
+                },
+            });
+            location.reload();
+        });
     });
 </script>
 

@@ -21,22 +21,17 @@
             <form action="{{ url('admin/create_book_author') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
-                    <!-- input category -->
+                    <!-- input name -->
                     <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                        <label for="category_name" class="form-label fw-bold">Tên tác giả<span class="text-danger">*</span></label>
+                        <label for="author_name" class="form-label fw-bold">Tên tác giả<span class="text-danger">*</span></label>
                         <input placeholder="" name="author_name" type="text" class="form-control @error('author_name') is-invalid @enderror" value="{{ old('author_name') }}">
                         @error('author_name')
                         <div class="invalid-feedback"><strong>{{$message}}</strong></div>
                         @enderror
                     </div>
-                    <!-- input slug
-                    <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                        <label for="" class="form-label fw-bold">Slug:</label>
-                        <input name="category_slug" type="text" class="form-control">
-                    </div> -->
                     <!-- input gender -->
                     <div class="form-group col-lg-4 col-md-12 col-sm-12">
-                        <label for="" class="form-label fw-bold">Giới tính<span class="text-danger">*</span></label>
+                        <label for="author_gender" class="form-label fw-bold">Giới tính<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <!-- <label class="input-group-text" for="author_gender">Kích hoạt</label> -->
                             <select class="form-select @error('author_gender') is-invalid @enderror" name="author_gender" id="author_gender">
@@ -51,7 +46,7 @@
                     </div>
                     <!-- input state -->
                     <div class="form-group col-lg-4 col-md-12 col-sm-12">
-                        <label for="" class="form-label fw-bold">Trạng thái<span class="text-danger">*</span></label>
+                        <label for="author_state" class="form-label fw-bold">Trạng thái<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <label class="input-group-text" for="author_state">Kích hoạt</label>
                             <select class="form-select @error('author_state') is-invalid @enderror" name="author_state" id="author_state">

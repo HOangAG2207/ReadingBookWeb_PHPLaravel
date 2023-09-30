@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookAuthor;
 use Illuminate\Http\Request;
 
 use App\Models\BookCategory;
@@ -15,7 +16,8 @@ class BookCategoryController extends Controller
     # GET - all list
     public function index()
     {
-        $data_cate = BookCategory::orderBy('updated_at', 'desc')->get();
+        $data_cate = BookCategory::orderBy('category_name', 'asc')->paginate(2);
+        // $data_cate = BookCategory::orderBy('updated_at', 'desc')->paginate(1);
         return view('admin.book_category.index')->with(compact('data_cate'));
     }
 
@@ -128,20 +130,46 @@ class BookCategoryController extends Controller
     }
 
     #DELETE
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $category = BookCategory::find($request->category_delete_id);
-        if ($category) {
-            $old_image_exist = 'uploads/images/category/' . $category->category_image;
+        $data = BookCategory::find($id);
+        
+        if ($data) {
+            $old_image_exist = 'uploads/images/category/' . $data->category_image;
             if (File::exists($old_image_exist)) {
                 File::delete($old_image_exist);
             }
+        }
+        $data->delete();
+        return response()->json([
+            'status' =>200,
+            'message' => 'Item deleted successfully'
+        ]);
+    }
+    // public function destroy(Request $request)
+    // {
+    //     $category = BookCategory::find($request->category_delete_id);
+    //     if ($category) {
+    //         $old_image_exist = 'uploads/images/category/' . $category->category_image;
+    //         if (File::exists($old_image_exist)) {
+    //             File::delete($old_image_exist);
+    //         }
+    //         $category->delete();
+    //         // return redirect('admin/book_category')->with('message', 'Xóa thành công');
+    //         return back();
+    //     } else {
+    //         return back();
+    //         // return redirect('admin/book_category')->with('message', 'Xóa thất bại');
+    //     }
+    // }
 
-            $category->delete();
-            return redirect('admin/book_category')->with('message', 'Xóa thành công');
-        }
-        else{
-            return redirect('admin/book_category')->with('message', 'Xóa thất bại');
-        }
+    # GET - change status
+    public function updateState(Request $request)
+    {
+        $data = BookCategory::find($request->category_id);
+        $data->category_state = $request->category_state;
+        $data->update();
+
+        return redirect('admin/book_category');
     }
 }

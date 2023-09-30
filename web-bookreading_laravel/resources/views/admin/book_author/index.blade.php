@@ -21,13 +21,18 @@
                         <th width="5%">Giới<br>tính</th>
                         <th>Tổng quan</th>
                         <th width="10%">Hình ảnh</th>
-                        <th width="10%">Trạng thái</th>
+                        <th width="15%">Trạng thái</th>
                         <th width="10%">Ngày<br>cập nhật</th>
                         <th width="5%">Sửa</th>
                         <th width="5%">Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($data_author->count() == 0)
+                    <tr>
+                        <td colspan="5">Danh sách chưa có tác giả nào được thêm.</td>
+                    </tr>
+                    @endif
                     @foreach($data_author as $value =>$author)
                     <tr class="align-middle">
                         <td class="text-center">
@@ -52,11 +57,15 @@
                                         ($author->author_gender==1 ? asset('uploads/male_no_image.png'):asset('uploads/female_no_image.png'))
                                         : asset('uploads/images/author/'.$author->author_image) }}" class=" gallery-item img-thumbnail border-info w-75 h-75" alt="{{ $author->author_name }}" />
                         </td>
-                        <td class="text-center">@if($author->author_state==1)
-                            <span class="text-success"><i class="fa-solid fa-circle-check"></i> Hiện</span>
+                        <td class="text-center form-switch">
+                            @if($author->author_state==1)
+                            <span class="text-success"><i class="fa-solid fa-circle-check"></i> Kích hoạt</span>
                             @else
-                            <span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Ẩn</span>
+                            <span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Không kích hoạt</span>
                             @endif
+                            <div class="">
+                                <input type="checkbox" data-id="{{ $author->id }}" name="author_state" class="js-switch" {{ $author->author_state==1 ? 'checked':''}}>
+                            </div>
                         </td>
                         <td class="text-center">{{ $author->updated_at }}</td>
                         <td class="text-center">
@@ -72,13 +81,15 @@
             </table>
         </div>
     </div>
-
+    <div class="mt-2">
+        {{ $data_author->links('layouts.paginate') }}
+    </div>
 </div>
 @endsection
 
 @section('image_zoom')
 
-<!-- Modal -->
+<!-- Modal zoom image-->
 <div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content w-100">
@@ -98,7 +109,7 @@
         width: 100%;
     }
 </style>
-<!-- scripts -->
+<!-- scripts zoom image -->
 <script>
     document.addEventListener("click", function(e) {
         if (e.target.classList.contains("gallery-item")) {
@@ -113,7 +124,7 @@
 @endsection
 
 @section('deleteConfirm')
-<!-- Modal -->
+<!-- Modal delete confirm-->
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -137,16 +148,8 @@
         </div>
     </div>
 </div>
-
+<!-- script delete confirm-->
 <script>
-    // $(document).ready(function(){
-    //     $('.deleteCategoryBtn').click(function(e){
-    //         e.preventDefault();
-
-    //         var category_id = $(this).val();
-    //         $('#delete-modal').modal('show');
-    //     });
-    // });
     document.addEventListener("click", function(e) {
         if (e.target.classList.contains("deleteAuthorBtn")) {
             e.preventDefault();
@@ -158,5 +161,32 @@
         }
     });
 </script>
-
+<!-- script change author statuss -->
+<script>
+    let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+    elems.forEach(function(html) {
+        let switchery = new Switchery(html, {
+            size: 'small'
+        });
+    });
+    $(document).ready(function() {
+        $('.js-switch').change(function() {
+            let status = $(this).prop('checked') === true ? 1 : 0;
+            let authorId = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route("update_state_book_author") }}',
+                data: {
+                    'author_state': status,
+                    'author_id': authorId
+                },
+                // success: function(data) {
+                //     console.log(data.message);
+                // }
+            });
+            location.reload();
+        });
+    });
+</script>
 @endsection
