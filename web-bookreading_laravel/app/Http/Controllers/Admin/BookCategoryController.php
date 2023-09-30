@@ -146,23 +146,6 @@ class BookCategoryController extends Controller
             'message' => 'Item deleted successfully'
         ]);
     }
-    // public function destroy(Request $request)
-    // {
-    //     $category = BookCategory::find($request->category_delete_id);
-    //     if ($category) {
-    //         $old_image_exist = 'uploads/images/category/' . $category->category_image;
-    //         if (File::exists($old_image_exist)) {
-    //             File::delete($old_image_exist);
-    //         }
-    //         $category->delete();
-    //         // return redirect('admin/book_category')->with('message', 'Xóa thành công');
-    //         return back();
-    //     } else {
-    //         return back();
-    //         // return redirect('admin/book_category')->with('message', 'Xóa thất bại');
-    //     }
-    // }
-
     # GET - change status
     public function updateState(Request $request)
     {

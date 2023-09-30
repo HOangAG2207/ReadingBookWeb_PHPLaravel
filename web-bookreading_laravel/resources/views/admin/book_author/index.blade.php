@@ -70,10 +70,9 @@
                         <td class="text-center">{{ $author->updated_at }}</td>
                         <td class="text-center">
                             <a href="{{ url('admin/edit_book_author/'.$author->id) }}" class="btn border-0"><i class="fa-solid fa-pen-to-square text-primary h5 pe-none"></i></a>
-                            <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
-                            <button type="button" class="btn deleteAuthorBtn" value="{{ $author->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i>
+                            <button type="button" class="btn delete-author border-0" value="{{ $author->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i></button>
                         </td>
                     </tr>
                     @endforeach
@@ -124,8 +123,8 @@
 @endsection
 
 @section('deleteConfirm')
-<!-- Modal delete confirm-->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -134,31 +133,44 @@
             </div>
             <div class="modal-body">
                 <div class="">Bạn có chắc chắn muốn xóa?</div>
-
             </div>
-            <form action="{{ url('admin/delete_book_author') }}" method="POST">
-                @csrf
-
-                <input type="hidden" name="author_delete_id" id="author_id">
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Có</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                </div>
-            </form>
+            <input type="hidden" id="author_id">
+            <div class="modal-footer">
+                <a href="javascript:void(1)" class="btn btn-danger delete_author_btn">Có</a>
+                <!-- <button type="button" class="btn btn-danger delete_category_btn"></button> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+            </div>
         </div>
     </div>
 </div>
 <!-- script delete confirm-->
 <script>
-    document.addEventListener("click", function(e) {
-        if (e.target.classList.contains("deleteAuthorBtn")) {
-            e.preventDefault();
+    // JavaScript to handle the delete action
+    $(document).on('click', '.delete-author', function(e) {
+        e.preventDefault();
+        $author_id = $(this).val();
 
-            $author_id = e.target.getAttribute("value");
-            document.querySelector("#author_id").value = $author_id;
-            const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
-            myModal.show();
-        }
+        $('#author_id').val($author_id);
+        $('#deleteModal').modal('show');
+    });
+    $(document).on('click', '.delete_author_btn', function(e) {
+        e.preventDefault();
+
+        $cate_id = $('#author_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'DELETE',
+            url: '/admin/delete_book_author/' + $author_id,
+            success: function(response) {
+                console.log(response);
+                $('#deleteModal').modal('hide');
+            }
+        });
+        location.reload();
     });
 </script>
 <!-- script change author statuss -->

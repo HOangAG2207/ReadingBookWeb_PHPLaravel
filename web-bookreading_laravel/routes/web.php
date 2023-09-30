@@ -25,12 +25,11 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['au
         Route::post('create_book_category', 'store');
         Route::get('edit_book_category/{id}', 'edit');
         Route::put('update_book_category/{id}', 'update');
-        // Route::delete('delete_book_category/{id}', 'destroy')->name('delete_book_category.destroy');
-        // Route::post('delete_book_category', 'destroy')->name('delete_category');
+        Route::delete('delete_book_category/{id}', 'destroy');
 
         Route::get('update_state_book_category', 'updateState')->name('update_state_book_category');
     });
-    Route::delete('delete_book_category/{id}', 'BookCategoryController@destroy');
+    
 
     Route::controller(BookAuthorController::class)->group(function () {
         #Route BookAuthor
@@ -39,7 +38,7 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['au
         Route::post('create_book_author', 'store');
         Route::get('edit_book_author/{id}', 'edit');
         Route::put('update_book_author/{id}', 'update');
-        Route::post('delete_book_author', 'destroy');
+        Route::delete('delete_book_author/{id}', 'destroy');
 
         Route::get('update_state_book_author', 'updateState')->name('update_state_book_author');
     });

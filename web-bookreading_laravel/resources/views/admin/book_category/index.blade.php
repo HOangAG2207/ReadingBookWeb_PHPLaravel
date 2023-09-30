@@ -77,7 +77,7 @@
                             <!-- <button type="submit" class="btn mt-1"><i class="fa-solid fa-pen-to-square text-primary h5"></i> -->
                         </td>
                         <td class="text-center">
-                            <button type="button" class="btn delete-category" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i></button>
+                            <button type="button" class="btn delete-category border-0" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i></button>
                             <!-- <button type="button" class="btn deleteCategoryBtn" value="{{ $cate->id }}"><i class="fa-solid fa-trash-can text-danger h5 pe-none"></i> -->
                         </td>
                     </tr>
@@ -180,16 +180,6 @@
         });
         location.reload();
     });
-    // document.addEventListener("click", function(e) {
-    //     if (e.target.classList.contains("deleteCategoryBtn")) {
-    //         e.preventDefault();
-
-    //         $cate_id = e.target.getAttribute("value");
-    //         document.querySelector("#category_id").value = $cate_id;
-    //         const myModal = new bootstrap.Modal(document.getElementById('delete-modal'));
-    //         myModal.show();
-    //     }
-    // });
 </script>
 <!-- script change author statuss -->
 <script>

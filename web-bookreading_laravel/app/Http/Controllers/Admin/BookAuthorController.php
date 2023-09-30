@@ -15,7 +15,7 @@ class BookAuthorController extends Controller
     # GET - all list
     public function index()
     {
-        $data_author = BookAuthor::paginate(2);
+        $data_author = BookAuthor::paginate(5);
         return view('admin.book_author.index')->with(compact('data_author'));
     }
 
@@ -128,21 +128,21 @@ class BookAuthorController extends Controller
     }
 
     #DELETE
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $author = BookAuthor::find($request->author_delete_id);
-        if ($author) {
-            $old_image_exist = 'uploads/images/author/' . $author->author_image;
+        $data = BookAuthor::find($id);
+        
+        if ($data) {
+            $old_image_exist = 'uploads/images/author/' . $data->author_image;
             if (File::exists($old_image_exist)) {
                 File::delete($old_image_exist);
             }
-
-            $author->delete();
-            return redirect('admin/book_author')->with('message', 'Xóa thành công');
         }
-        else{
-            return redirect('admin/book_author')->with('message', 'Xóa thất bại');
-        }
+        $data->delete();
+        return response()->json([
+            'status' =>200,
+            'message' => 'Deleted successfully'
+        ]);
     }
 
     # GET - change status
