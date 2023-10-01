@@ -18,28 +18,28 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['au
 
     #Route Dashboard
     Route::get('dashboard', 'DashboardController@index')->name('admin_dashboard');
-    Route::controller(BookCategoryController::class)->group(function () {
+    Route::controller(CategoryController::class)->group(function () {
         #Route BookCategory
-        Route::get('book_category', 'index');
-        Route::get('create_book_category', 'create');
-        Route::post('create_book_category', 'store');
-        Route::get('edit_book_category/{id}', 'edit');
-        Route::put('update_book_category/{id}', 'update');
-        Route::delete('delete_book_category/{id}', 'destroy');
+        Route::get('category', 'index');
+        Route::get('create_category', 'create');
+        Route::post('create_category', 'store');
+        Route::get('edit_category/{id}', 'edit');
+        Route::put('update_category/{id}', 'update');
+        Route::delete('delete_category/{id}', 'destroy');
 
-        Route::get('update_state_book_category', 'updateState')->name('update_state_book_category');
+        Route::get('update_status_category', 'updateStatus')->name('update_status_category');
     });
     
 
-    Route::controller(BookAuthorController::class)->group(function () {
+    Route::controller(AuthorController::class)->group(function () {
         #Route BookAuthor
-        Route::get('book_author', 'index');
-        Route::get('create_book_author', 'create');
-        Route::post('create_book_author', 'store');
-        Route::get('edit_book_author/{id}', 'edit');
-        Route::put('update_book_author/{id}', 'update');
-        Route::delete('delete_book_author/{id}', 'destroy');
+        Route::get('author', 'index');
+        Route::get('create_author', 'create');
+        Route::post('create_author', 'store');
+        Route::get('edit_author/{id}', 'edit');
+        Route::put('update_author/{id}', 'update');
+        Route::delete('delete_author/{id}', 'destroy');
 
-        Route::get('update_state_book_author', 'updateState')->name('update_state_book_author');
+        Route::get('update_status_author', 'updateStatus')->name('update_status_author');
     });
 });

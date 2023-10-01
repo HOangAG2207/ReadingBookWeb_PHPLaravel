@@ -16,11 +16,11 @@
                 </a>
                 <div class="collapse" id="collapseCategory" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ url('admin/book_category') }}">
+                        <a class="nav-link" href="{{ url('admin/category') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list text-success"></i></div>
                             Xem Danh sách
                         </a>
-                        <a class="nav-link" href="{{ url('admin/create_book_category') }}">
+                        <a class="nav-link" href="{{ url('admin/create_category') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
                             Thêm mới
                         </a>
@@ -28,17 +28,35 @@
                 </div>
                 <!-- menu book_author-->
                 <a class="nav-link collapsed text-warning" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tag"></i></div>
                     TÁC GIẢ
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseAuthor" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ url('admin/book_author') }}">
+                        <a class="nav-link" href="{{ url('admin/author') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list text-success"></i></div>
                             Xem Danh sách
                         </a>
-                        <a class="nav-link" href="{{ url('admin/create_book_author') }}">
+                        <a class="nav-link" href="{{ url('admin/create_author') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
+                            Thêm mới
+                        </a>
+                    </nav>
+                </div>
+                <!-- menu book-->
+                <a class="nav-link collapsed text-warning" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBook" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-book"></i></div>
+                    SÁCH, TRUYỆN
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseBook" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ url('admin/book') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list text-success"></i></div>
+                            Xem Danh sách
+                        </a>
+                        <a class="nav-link" href="{{ url('admin/create_book') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
                             Thêm mới
                         </a>
