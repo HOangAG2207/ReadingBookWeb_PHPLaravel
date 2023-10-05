@@ -18,8 +18,11 @@ class Category extends Model
         'category_status',
         'created_by',
     ];
-    // public function Book()
-    // {
-    //     return $this->hasMany(book::class, 'category_id', 'id');
-    // }
+
+    protected $guarded = [];
+
+    public function book()
+    {
+        return $this->belongsToMany(Book::class,'book_category');
+    }
 }

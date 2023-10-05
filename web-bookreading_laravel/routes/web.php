@@ -21,10 +21,14 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['au
     Route::controller(CategoryController::class)->group(function () {
         #Route BookCategory
         Route::get('category', 'index');
+        // Route::get('fetch-category', 'fetchdata');
+
         Route::get('create_category', 'create');
         Route::post('create_category', 'store');
+
         Route::get('edit_category/{id}', 'edit');
         Route::put('update_category/{id}', 'update');
+
         Route::delete('delete_category/{id}', 'destroy');
 
         Route::get('update_status_category', 'updateStatus')->name('update_status_category');

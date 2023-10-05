@@ -19,4 +19,11 @@ class Book extends Model
         'book_status',
         'created_by',
     ];
+
+    protected $guarded = [];
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class,'book_category');
+    }
 }

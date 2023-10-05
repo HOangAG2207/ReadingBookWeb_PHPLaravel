@@ -4,7 +4,7 @@
 
 @section('admin_content')
 <div class="container-fluid px-4">
-    <h2 class="mt-4 text-success">Thể loại Sách<span class="text-info h4"> > </span><span class="h5 text-secondary fw-normal">Cập nhật</span></h2>
+    <h2 class="mt-2 text-success">Thể loại Sách<span class="text-info h4"> > </span><span class="h5 text-secondary fw-normal">Cập nhật</span></h2>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active"></li>
     </ol>

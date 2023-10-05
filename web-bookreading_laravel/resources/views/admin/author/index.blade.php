@@ -12,7 +12,7 @@
         <div class="card-header">
             <a href="{{ url('admin/create_author') }}" class="btn btn-primary btn-md float-end"><i class="fa-solid fa-plus"></i> Thêm mới</a>
         </div>
-        <div class="card-body">
+        <div class="card-body table-responsive">
             <table class="table table-bordered table-hover table-sm mb-0">
                 <thead>
                     <tr class="text-center align-middle text-uppercase table-warning">
@@ -37,7 +37,8 @@
                     @foreach($data_author as $value =>$author)
                     <tr class="align-middle">
                         <td class="text-center">
-                            @if($loop->iteration < 10) 0{{ $loop->iteration }} @else {{ $loop->iteration }} @endif </td>
+                            {{ $value + $data_author->firstItem() }}
+                            <!-- @if($loop->iteration < 10) 0{{ $loop->iteration }} @else {{ $loop->iteration }} @endif </td> -->
                         <td class="px-3 text-primary">
                             <a href="" class="fw-bold text-decoration-none text-primary">{{ $author->author_name }}</a>
                             <span class="text-decoration-none text-secondary">#{{ $author->author_slug }}</span>
@@ -69,9 +70,9 @@
                             </div>
                         </td>
                         @foreach($user as $value)
-                            @if($value->id == $author->created_by)
+                        @if($value->id == $author->created_by)
                         <td class="text-center">{{ $value->name }}</td>
-                            @endif
+                        @endif
                         @endforeach
                         <td class="text-center">{{ $author->updated_at }}</td>
                         <td class="text-center">

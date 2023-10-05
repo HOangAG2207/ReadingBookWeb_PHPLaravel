@@ -1,5 +1,5 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">QUẢN LÝ CHUNG</div>
@@ -9,7 +9,7 @@
                 </a>
                 <div class="sb-sidenav-menu-heading">QUẢN LÝ SÁCH</div>
                 <!-- menu book_category -->
-                <a class="nav-link collapsed text-warning" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed fw-bold text-success" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                     THỂ LOẠI
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -27,7 +27,7 @@
                     </nav>
                 </div>
                 <!-- menu book_author-->
-                <a class="nav-link collapsed text-warning" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed fw-bold text-success" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tag"></i></div>
                     TÁC GIẢ
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -45,7 +45,7 @@
                     </nav>
                 </div>
                 <!-- menu book-->
-                <a class="nav-link collapsed text-warning" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBook" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link collapsed fw-bold text-success" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBook" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-book"></i></div>
                     SÁCH, TRUYỆN
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

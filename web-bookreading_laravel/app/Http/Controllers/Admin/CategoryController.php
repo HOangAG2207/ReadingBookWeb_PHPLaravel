@@ -11,16 +11,16 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use DB;
 
 class CategoryController extends Controller
 {
     # GET - all list
     public function index()
     {
+        $data_cate=Category::orderBy('category_name', 'asc')->paginate(5);
         $user=User::all();
-        $data_cate = Category::orderBy('category_name', 'asc')->paginate(5);
-        // $data_cate = BookCategory::orderBy('updated_at', 'desc')->paginate(1);
-        return view('admin.category.index')->with(compact('data_cate','user'));
+        return view('admin.category.index')->with(compact('data_cate','user'));;
     }
 
     # GET

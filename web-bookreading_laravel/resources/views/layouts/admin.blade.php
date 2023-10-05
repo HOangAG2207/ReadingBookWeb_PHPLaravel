@@ -13,7 +13,7 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script> -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,7 +27,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body class="bg-secondary bg-gradient bg-opacity-25">
     @include('layouts.include.admin_navbar')
     <div id="layoutSidenav">
         @include('layouts.include.admin_sidebar')
@@ -39,6 +39,7 @@
         </div>
     </div>
     <!-- yield -->
+    @yield('script_category')
     @yield('image_zoom')
     @yield('deleteConfirm');
 </body>
