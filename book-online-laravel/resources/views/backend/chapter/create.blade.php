@@ -1,0 +1,70 @@
+@extends('backend.layouts.admin')
+
+@section('title','Quản lý Sách')
+
+@section('admin_content')
+<div class="container-fluid">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-3 mx-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item h2">
+                <p id="text-color" class="text-decoration-none badge rounded-pill bg-light border border-3">CHƯƠNG SÁCH</p>
+            </li>
+            <li class="breadcrumb-item h2 active" aria-current="page">Thêm mới</li>
+        </ol>
+    </nav>
+    <div class="card mx-5 border-0">
+        <div class="card-header mb-3 border-0 bg-white">
+            <a href="{{ route('chapter.index') }}" class="btn btn-primary btn-sm shadow fw-bold float-end"><i class="fa-solid fa-clipboard-list me-2"></i>Xem Danh sách</a>
+        </div>
+        <div class="card-body border border-2 shadow rounded">
+            <form action="{{ route('chapter.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row mb-3">
+                    {{-- Số chương --}}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-12">
+                        <label for="chapter_number" class="form-label fw-bold">Số chương <span class="text-danger fw-bolder">*</span></label>
+                        <input type="search" class="form-control @error('chapter_number') is-invalid @enderror" id="chapter_number" name="chapter_number" value="{{ old('chapter_number') }}" placeholder="Ví dụ: 1, 2, 2A, 2B,...">
+                        @error('chapter_number')
+                        <div class="invalid-feedback"><strong>{{$message}}</strong></div>
+                        @enderror
+                    </div>
+                    {{-- Tiêu đề chương --}}
+                    <div class="form-group col-lg-8 col-md-8 col-sm-12">
+                        <label for="chapter_name" class="form-label fw-bold">Tiêu đề chương</label>
+                        <input type="search" class="form-control @error('chapter_name') is-invalid @enderror" id="chapter_name" name="chapter_name" value="{{ old('chapter_name') }}" placeholder="Phải có ít nhất 5 kí tự">
+                        @error('chapter_name')
+                        <div class="invalid-feedback"><strong>{{$message}}</strong></div>
+                        @enderror
+                    </div>
+                </div>
+                {{-- Thuộc sách nào--}}
+                <div class="form-group mb-3">
+                    <label for="" class="form-label fw-bold">Chương này thuộc sách <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <label class="input-group-text bg-secondary text-white" for="book_id">Chọn sách</label>
+                        <select class="form-control text-center select @error('book_id') is-invalid @enderror" name="book_id" id="book_id" data-mdb-filter="true">
+                            <option value="">---------CHỌN---------</option>
+                            @foreach($chapter_book as $value => $book)
+                            <option value="{{$book->id}}">{{$book->book_name}}</option>
+                            @endforeach
+                        </select>
+                        @error('book_id')
+                        <div class="invalid-feedback"><strong>{{$message}}</strong></div>
+                        @enderror
+                    </div>
+                </div>
+                {{-- Nội dung --}}
+                <div class="form-group mb-3 rounded">
+                    <label for="chapter_content" class="form-label fw-bold">Nội dung</label>
+                    <textarea class="form-control" name="chapter_content" id="ckeditor" rows="15" placeholder="..."></textarea>
+                </div>
+                <!-- save button -->
+                <div class="form-group">
+                    <button type="submit" name="create_chapter" class="btn btn-success btn-lg shadow w-100 fw-bold"><i class="fa-solid fa-check"></i> Thêm chương</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>
+@endsection
