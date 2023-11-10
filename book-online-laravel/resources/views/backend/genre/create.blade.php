@@ -4,14 +4,21 @@
 
 @section('admin_content')
 <div class="container-fluid">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-3 mx-5">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item h2">
-                <p id="text-color" class="text-decoration-none badge rounded-pill bg-light border border-3">THỂ LOẠI</p>
-            </li>
-            <li class="breadcrumb-item h2 active" aria-current="page">Thêm mới</li>
-        </ol>
-    </nav>
+    <div class="card mx-2 my-2">
+        <div class="card-header py-0 pt-1 align-middle">
+            <div class="float-start">
+                <h3 class="text-darkcyan fw-bold">THỂ LOẠI</h3>
+            </div>
+            <div class="float-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item text-darkcyan fw-bold"><a>Thể loại</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a>Thêm mới</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <div class="card mx-5">
         <div class="card-header">
             <a href="{{ route('genre.index') }}" class="btn btn-primary btn-sm shadow fw-bold float-end"><i class="fa-solid fa-clipboard-list me-2"></i>Xem Danh sách</a>

@@ -1,4 +1,4 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: darkcyan;opacity:0.8;">
+<nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: #f7a81e;">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="index.html">
         <img alt="" src="{{ asset('assets/images/logos/logo-bookonline.png') }}" width="180px" height="30px" style="object-fit: contain;">

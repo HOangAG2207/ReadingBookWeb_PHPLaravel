@@ -4,38 +4,49 @@
 
 @section('admin_content')
 <div class="container-fluid">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-3 mx-5">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item h2">
-                <p id="text-color" class="text-decoration-none badge rounded-pill bg-light border border-3">THỂ LOẠI</p>
-            </li>
-            <li class="breadcrumb-item h2 active" aria-current="page">Danh sách</li>
-        </ol>
-    </nav>
-    <div class="card mx-2">
-        <div class="card-header">
+    <div class="card mx-2 my-2">
+        <div class="card-header py-0 pt-1 align-middle">
+            <div class="float-start">
+                <h3 class="text-darkcyan fw-bold">THỂ LOẠI</h3>
+            </div>
+            <div class="float-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item text-darkcyan fw-bold"><a>Thể loại</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a>Xem danh sách</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="card mx-2 border-0">
+        <!-- add button -->
+        <div class="card-header bg-white border-bottom border-4">
             <a href="{{ route('genre.create') }}" class="btn btn-primary btn-sm fw-bold float-end"><i class="fa-solid fa-circle-plus me-2"></i>Thêm mới</a>
         </div>
-        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 mt-3 px-3">
+        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 mt-2 px-3">
+            <!-- search box -->
             <div class="form-group">
                 <form class="input-group w-auto my-auto rounded" style="border: solid 2px darkcyan;background: darkcyan;">
                     <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i>
                     </span>
-                    <input autocomplete="on" id="searchBox" type="search" class="form-control border-0" placeholder="Nhập từ khóa để tìm kiếm..." />
+                    <input autocomplete="on" id="searchBox" type="text" class="form-control border-0" placeholder="Nhập từ khóa để tìm kiếm..." />
                 </form>
             </div>
+            <!-- status filter -->
             <div class="form-group mt-3 mt-md-0 mt-lg-0">
                 <div class="input-group">
-                    <label class="input-group-text text-white fw-bold" for="genre_status" style="border: solid 2px darkcyan; background:darkcyan;">Trạng thái</label>
-                    <select class="form-control text-center" name="genre_status" id="genre_status" style="border: solid 2px darkcyan;">
+                    <label class="input-group-text text-white fw-bold" for="status" style="border: solid 2px darkcyan; background:darkcyan;">Trạng thái</label>
+                    <select class="form-control text-center" name="status" id="status-filter" style="border: solid 2px darkcyan;">
+                        <option value="">Tất cả</option>
                         <option value="1">HIỂN THỊ</option>
                         <option value="0">ẨN</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="card-body table-responsive table-content">
-            <table class="table table-bordered table-hover table-sm">
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-hover table-sm" id="table">
                 <thead>
                     <tr class="text-center align-middle text-uppercase table-warning">
                         <th width="5%">#</th>
@@ -49,7 +60,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($data_genre as $value => $genre)
+                    @forelse($data_genre as $genre)
                     <tr class="align-middle" id="genre-item{{$genre->id}}">
                         <td class="text-center">
                             {{ $loop->iteration }}
@@ -66,7 +77,7 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('genre.changeStatus',[$genre->id]) }}" class="btn btn-sm fw-bold btn-{{$genre->genre_status==1?'success':'danger'}}" style="width:80px;height:30px;">
+                            <a class="btn btn-sm fw-bold btn-{{$genre->genre_status==1?'success':'danger'}} change-status" style="width:80px;height:30px;" data-id="{{$genre->id}}" data-name="{{$genre->genre_name}}">
                                 @if($genre->genre_status==1)
                                 <i class="fa-solid fa-circle-check me-1"></i>
                                 @else
@@ -89,22 +100,27 @@
                             <a href="{{ route('genre.edit',['genre'=> $genre->id]) }}" class="btn btn-edit rounded-circle"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
                         </td>
                         <td class="text-center">
-                            <form action="{{ route('genre.destroy',['genre'=> $genre->id]) }}" method="POST">
+                            <a class="btn rounded-circle btn-delete" data-id="{{$genre->id}}" data-name="{{$genre->genre_name}}">
+                                <i class="fa-solid fa-trash-can text-danger"></i>
+                            </a>
+                            <!-- <form action="{{ route('genre.destroy',['genre'=> $genre->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
+
                                 <button onclick="return confirm('Bạn có chắc muốn xóa Thể loại {{ $genre->genre_name }} không?')" class="btn btn-delete rounded-circle"><i class="fa-solid fa-trash-can text-danger"></i></button>
-                            </form>
+                            </form> -->
                         </td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="8" class="text-center" style="color: darkcyan;">
-                            <h5>Danh sách rỗng</h5>
+                    <tr class="align-middle">
+                        <td class="text-center" colspan="8">
+                            Không có dữ liệu
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
+            {!!$data_genre->onEachSide(1)->links('backend.layouts.partial.admin-pagination')!!}
         </div>
     </div>
 </div>
@@ -121,18 +137,5 @@
     }
 </style>
 
-<!-- scripts -->
-<script type="text/javascript">
-    // Start page
-    $(document).ready(function(e) {
-        // e.preventDefault();
-        // set up csrf-token ajax
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-    });
-</script>
+@include('backend.genre.script.script')
 @endsection

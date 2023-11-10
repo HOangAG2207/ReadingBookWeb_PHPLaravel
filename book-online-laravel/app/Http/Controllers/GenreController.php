@@ -21,7 +21,7 @@ class GenreController extends Controller
     
     public function index()
     {
-        $data_genre=Genre::orderBy('created_at', 'desc')->get();
+        $data_genre=Genre::latest()->paginate(5);
         return view('backend.genre.index')->with(compact('data_genre'));
     }
 
@@ -140,9 +140,14 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        $data = Genre::find($id);
+        // $data = Genre::find($id);
+        // $data->delete();
+        // return back()->with('success', 'Đã xóa thể loại '.$data->genre_name);
+    }
+    public function delete(Request $request){
+        $data = Genre::find($request->id);
         $data->delete();
-        return back()->with('success', 'Đã xóa thể loại '.$data->genre_name);
+        return response()->json(['status'=>'success']);
     }
     /**
      * Remove the specified resource from storage.
@@ -150,13 +155,13 @@ class GenreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus($id)
+    public function changeStatus(Request $request)
     {
-        $data = Genre::find($id);
+        $data = Genre::find($request->id);
         $data->genre_status = !$data->genre_status;
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
-        return back()->with('success', 'Đã thay đổi trạng thái thể loại '.$data->genre_name);
+        return response()->json(['status'=>'success']);
     }
 
 }

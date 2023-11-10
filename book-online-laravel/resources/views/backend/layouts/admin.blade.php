@@ -20,6 +20,9 @@
         #text-color {
             color: #f58c02;
         }
+        .text-darkcyan {
+            color: darkcyan;
+        }
     </style>
 
     <!-- **SCRIPTS** -->
@@ -29,16 +32,13 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- toastr message -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script> -->
     <!-- ckeditor -->
     <script src="/ckeditor/ckeditor.js"></script>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
 </head>
 
 <body>
@@ -53,9 +53,6 @@
         </div>
     </div>
     <!-- yield -->
-
-    @if(session('success'))
-    <!-- toastr message -->
     <script>
         toastr.options = {
             "progressBar": true,
@@ -68,15 +65,13 @@
             "closeMethod": 'fadeOut',
             positionClass: 'top-10 end-0 translate-middle-x'
         }
+    </script>
+    @if(session('success'))
+    <!-- toastr message -->
+    <script>
         toastr.success("{{session('success')}}", "Thành công!!!");
     </script>
     @endif
-    <!-- <script>
-        CKEDITOR.replace('ckeditor', {
-            // Provide the activation key.
-            licenseKey: 'your-license-key',
-        });
-    </script> -->
 </body>
 
 </html>

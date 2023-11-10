@@ -12,7 +12,7 @@ use App\Http\Controllers\{
 
     TestuController
 };
-
+use App\Models\Genre;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +41,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 
     //Quản lý thể loại
-    Route::resource('/genre', GenreController::class);
-    Route::get('/genre/changeStatus/{id}', [GenreController::class, 'changeStatus'])->name('genre.changeStatus');
+    Route::resource('/genre', GenreController::class); // resource genre (the loai sach)
+    Route::post('/genre/delete', [GenreController::class, 'delete'])->name('genre.delete'); // delete
+    Route::post('/genre/changeStatus', [GenreController::class, 'changeStatus'])->name('genre.changeStatus'); // change status
+    // Route::get('/genre/changeStatus/{id}', [GenreController::class, 'changeStatus'])->name('genre.changeStatus'); // change status
 
     //Quản lý sách
     Route::resource('/book', BookController::class);
@@ -52,8 +54,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/chapter', ChapterController::class);
     Route::get('/chapter/changeStatus/{id}', [ChapterController::class, 'changeStatus'])->name('chapter.changeStatus');
 
-    //testu
-    Route::resource('/testu', TestuController::class);
-    Route::get('/get-data', [TestuController::class, 'getData'])->name('testu.getdata');
-    Route::get('/change-status', [TestuController::class, 'changeStatus'])->name('testu.changestatus');
+
 });
