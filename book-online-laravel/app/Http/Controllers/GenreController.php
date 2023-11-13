@@ -9,7 +9,7 @@ use Storage;
 use Carbon\Carbon;
 
 use App\Models\{Genre};
-
+use Psy\Readline\Hoa\Console;
 
 class GenreController extends Controller
 {
@@ -18,11 +18,24 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-    public function index()
+
+    public function index(Request $request)
     {
-        $data_genre=Genre::latest()->paginate(5);
-        return view('backend.genre.index')->with(compact('data_genre'));
+        // $data_genre = Genre::query()->orderBy('created_at', 'desc')->paginate(5);
+        // return view('backend.genre.index', compact('data_genre'));
+        // return ($request->status.' a '.$request->searchBox);
+        $all = Genre::all();
+        $data_genre = Genre::query()
+        ->when($request->status !=null, function($query) use($request){
+            return $query->where('genre_status',$request->status);
+        })
+        ->when($request->searchBox !=null, function($query) use($request){
+            return $query->where('genre_name','like','%'.$request->searchBox.'%');
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
+        
+        return view('backend.genre.index', compact('data_genre','all'));
     }
 
     /**
@@ -67,7 +80,7 @@ class GenreController extends Controller
         // $genre->genre_status = $request->genre_status;
 
         $genre->save();
-        return back()->with('success', 'Đã thêm thể loại '.$genre->genre_name);
+        return back()->with('success', 'Đã thêm thể loại ' . $genre->genre_name);
     }
 
     /**
@@ -89,8 +102,8 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
-        $data_genre=Genre::find($id);
-        return view('backend.genre..edit')->with(compact('data_genre'));;
+        $data_genre = Genre::find($id);
+        return view('backend.genre.edit')->with(compact('data_genre'));;
     }
 
     /**
@@ -144,10 +157,11 @@ class GenreController extends Controller
         // $data->delete();
         // return back()->with('success', 'Đã xóa thể loại '.$data->genre_name);
     }
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $data = Genre::find($request->id);
         $data->delete();
-        return response()->json(['status'=>'success']);
+        return response()->json(['status' => 'success']);
     }
     /**
      * Remove the specified resource from storage.
@@ -161,8 +175,6 @@ class GenreController extends Controller
         $data->genre_status = !$data->genre_status;
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
-        return response()->json(['status'=>'success']);
+        return response()->json(['status' => 'success']);
     }
-
 }
-

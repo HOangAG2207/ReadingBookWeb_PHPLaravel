@@ -4,19 +4,27 @@
 
 @section('admin_content')
 <div class="container-fluid">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-3 mx-5">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item h2">
-                <p id="text-color" class="text-decoration-none badge rounded-pill bg-light border border-3">CHƯƠNG SÁCH</p>
-            </li>
-            <li class="breadcrumb-item h2 active" aria-current="page">Danh sách</li>
-        </ol>
-    </nav>
+    <div class="card mx-2 my-2">
+        <div class="card-header py-0 pt-1 align-middle">
+            <div class="float-start">
+                <h3 class="text-darkcyan fw-bold">CHƯƠNG SÁCH</h3>
+            </div>
+            <div class="float-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item text-darkcyan fw-bold"><a>Chương sách</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('chapter.index') }}">Xem danh sách</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <div class="card mx-2 border-0">
-        <div class="card-header mb-3 bg-white border-bottom border-4">
+        <div class="card-header bg-white border-bottom border-4">
             <a href="{{ route('chapter.create') }}" class="btn btn-primary btn-sm fw-bold float-end"><i class="fa-solid fa-circle-plus me-2"></i>Thêm mới</a>
         </div>
-        <div class="card-body table-responsive">
+        <hr>
+        <div class="table-responsive">
             <table class="table table-bordered table-hover table-sm">
                 <thead>
                     <tr class="text-center align-middle text-uppercase table-warning">
@@ -85,8 +93,17 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="8" class="text-center" style="color: darkcyan;"><h5>Danh sách rỗng</h5></td></tr>
+                    <tr class="align-middle">
+                        <td class="text-center" colspan="8">
+                            Không có dữ liệu
+                        </td>
+                    </tr>
                     @endforelse
+                    <tr>
+                        <td colspan="8" class="pt-3">
+                            {!!$data_chapter->appends($_GET)->links('backend.layouts.pagination.admin-pagination')!!}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

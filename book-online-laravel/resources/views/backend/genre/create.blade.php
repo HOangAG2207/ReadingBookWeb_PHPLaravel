@@ -19,11 +19,11 @@
             </div>
         </div>
     </div>
-    <div class="card mx-5">
-        <div class="card-header">
+    <div class="card mx-5 border-0">
+        <div class="card-header mb-3 border-0 bg-white">
             <a href="{{ route('genre.index') }}" class="btn btn-primary btn-sm shadow fw-bold float-end"><i class="fa-solid fa-clipboard-list me-2"></i>Xem Danh sách</a>
         </div>
-        <div class="card-body border-1">
+        <div class="card-body border border-2 shadow rounded">
             <form action="{{ route('genre.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

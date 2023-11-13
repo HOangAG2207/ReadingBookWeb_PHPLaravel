@@ -19,11 +19,11 @@
             </div>
         </div>
     </div>
-    <div class="card mx-5">
-        <div class="card-header">
+    <div class="card mx-5 border-0">
+        <div class="card-header mb-3 border-0 bg-white">
             <a href="{{ route('genre.index') }}" class="btn btn-primary btn-sm shadow fw-bold float-end"><i class="fa-solid fa-clipboard-list me-2"></i>Xem Danh sách</a>
         </div>
-        <div class="card-body border-1">
+        <div class="card-body border border-2 shadow rounded">
             <form action="{{ route('genre.update',['genre'=> $data_genre->id]) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
@@ -44,7 +44,7 @@
                 <div class="form-group mb-3">
                     <label for="" class="form-label fw-bold">Trạng thái<span class="text-danger"></span></label>
                     <div class="input-group">
-                        <label class="input-group-text bg-secondary text-white" for="genre_status">Trạng thái hiển thị</label>
+                        <label class="input-group-text bg-secondary text-white" for="genre_status">Chọn trạng thái</label>
                         <select class="form-control fw-bold text-center" name="genre_status" id="genre_status">
                             <option value="1" class="fw-bold" {{ ($data_genre->genre_status == 1) ? 'selected' : '' }}>HIỂN THỊ</option>
                             <option value="0" class="fw-bold" {{ ($data_genre->genre_status == 0) ? 'selected' : '' }}>ẨN</option>

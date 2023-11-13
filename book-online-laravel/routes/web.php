@@ -41,18 +41,35 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 
     //Quản lý thể loại
-    Route::resource('/genre', GenreController::class); // resource genre (the loai sach)
-    Route::post('/genre/delete', [GenreController::class, 'delete'])->name('genre.delete'); // delete
-    Route::post('/genre/changeStatus', [GenreController::class, 'changeStatus'])->name('genre.changeStatus'); // change status
-    // Route::get('/genre/changeStatus/{id}', [GenreController::class, 'changeStatus'])->name('genre.changeStatus'); // change status
+    Route::controller(GenreController::class)->group(function () {
+        // Route::resource('/genre', GenreController::class); // resource genre (the loai sach)
+        Route::get('genre', 'index')->name('genre.index'); // index page
+
+        Route::get('genre/create', 'create')->name('genre.create'); // go to create new page
+        Route::post('genre/store', 'store')->name('genre.store'); // submit new create
+
+        Route::get('genre/{genre}/edit', 'edit')->name('genre.edit'); // go to edit page
+        Route::put('genre/{genre}', 'update')->name('genre.update'); // update new edit
+
+        Route::post('genre/delete', 'delete')->name('genre.delete'); // delete
+        Route::post('genre/changeStatus', 'changeStatus')->name('genre.changeStatus'); // change status
+    });
 
     //Quản lý sách
-    Route::resource('/book', BookController::class);
-    Route::get('/book/changeStatus/{id}', [BookController::class, 'changeStatus'])->name('book.changeStatus');
+    Route::controller(BookController::class)->group(function () {
+        Route::get('book', 'index')->name('book.index'); // index page
+
+        Route::get('book/create', 'create')->name('book.create'); // go to create new page
+        Route::post('book/store', 'store')->name('book.store'); // submit new create
+
+        Route::get('book/{book}/edit', 'edit')->name('book.edit'); // go to edit page
+        Route::put('book/{book}', 'update')->name('book.update'); // update new edit
+
+        Route::post('book/delete', 'delete')->name('book.delete'); // delete
+        Route::post('book/changeStatus', 'changeStatus')->name('book.changeStatus'); // change status
+    });
 
     //Quản lý chapter
     Route::resource('/chapter', ChapterController::class);
     Route::get('/chapter/changeStatus/{id}', [ChapterController::class, 'changeStatus'])->name('chapter.changeStatus');
-
-
 });

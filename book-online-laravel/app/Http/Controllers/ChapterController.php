@@ -17,7 +17,7 @@ class ChapterController extends Controller
      */
     public function index()
     {
-        $data_chapter=Chapter::with('book')->orderBy('created_at', 'desc')->get();
+        $data_chapter=Chapter::with('book')->orderBy('created_at', 'desc')->paginate(5);
         return view('backend.chapter.index')->with(compact('data_chapter'));
     }
 

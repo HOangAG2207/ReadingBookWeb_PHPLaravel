@@ -16,10 +16,20 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data_book=Book::with('genre','chapter')->orderBy('created_at', 'desc')->get();
-        return view('backend.book.index')->with(compact('data_book'));
+        $all = Book::all();
+        $data_book = Book::query()
+            ->when($request->status != null, function ($query) use ($request) {
+                return $query->where('book_status', $request->status);
+            })
+            ->when($request->searchBox != null, function ($query) use ($request) {
+                return $query->where('book_name', 'like', '%' . $request->searchBox . '%');
+            })
+            ->with('genre', 'chapter')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        return view('backend.book.index')->with(compact('data_book', 'all'));
     }
 
     /**
@@ -78,7 +88,7 @@ class BookController extends Controller
             $book->book_image = $file_name;
         }
         // $book->book_status = $request->book_status; -> mặc định giá trị = 0 (ẩn)
-        
+
 
         $book->save();
         return back()->with('success', 'Đã thêm sách ' . $book->book_name);
@@ -104,8 +114,8 @@ class BookController extends Controller
     public function edit($id)
     {
         $data_genre = Genre::orderBy('genre_name', "asc")->get();
-        $data_book=Book::find($id);
-        return view('backend.book.edit')->with(compact('data_book','data_genre'));
+        $data_book = Book::find($id);
+        return view('backend.book.edit')->with(compact('data_book', 'data_genre'));
     }
 
     /**
@@ -143,11 +153,11 @@ class BookController extends Controller
         $book->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
 
         if ($request->hasfile('book_image')) {
-            if ($book->book_image!=null) {
-                $old_image_exist = storage_path('app/public/uploads/Sach/'.$book->book_image);
+            if ($book->book_image != null) {
+                $old_image_exist = storage_path('app/public/uploads/Sach/' . $book->book_image);
                 if (File::exists($old_image_exist)) {
                     unlink($old_image_exist);
-                }  
+                }
             }
 
             $file = $request->file('book_image');
@@ -172,23 +182,31 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $data = Book::find($id);
-
-        if ($data->book_image!=null) {
-            $old_image_exist = storage_path('app/public/uploads/Sach/'.$data->book_image);
+    }
+    public function delete(Request $request)
+    {
+        $data = Book::find($request->id);
+        if ($data->book_image != null) {
+            $old_image_exist = storage_path('app/public/uploads/Sach/' . $data->book_image);
             if (File::exists($old_image_exist)) {
                 unlink($old_image_exist);
-            }  
+            }
         }
         $data->delete();
-        return back()->with('success', 'Đã xóa Sách '.$data->book_name);
+        return response()->json(['status' => 'success']);
     }
-    public function changeStatus($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(Request $request)
     {
-        $data = Book::find($id);
+        $data = Book::find($request->id);
         $data->book_status = !$data->book_status;
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
-        return back()->with('success', 'Đã thay đổi trạng thái sách '.$data->book_name);
+        return response()->json(['status' => 'success']);
     }
 }
