@@ -35,7 +35,9 @@
         @endif
     </td>
     <td class="text-center">
-        <a href="{{ route('genre.edit',['genre'=> $genre->id]) }}" class="btn btn-edit rounded-circle"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
+        <a href="{{ route('genre.edit',['genre'=> $genre->id]) }}" class="btn btn-edit rounded-circle">
+            <i class="fa-solid fa-pen-to-square text-primary"></i>
+        </a>
     </td>
     <td class="text-center">
         <a class="btn rounded-circle btn-delete" data-id="{{$genre->id}}" data-name="{{$genre->genre_name}}">

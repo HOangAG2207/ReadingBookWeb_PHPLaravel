@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: #f7a81e;">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.html">
+    <a class="navbar-brand ps-3" href="{{route('home')}}" target="_blank">
         <img alt="" src="{{ asset('assets/images/logos/logo-bookonline.png') }}" width="180px" height="30px" style="object-fit: contain;">
     </a>
     <!-- Sidebar Toggle-->

@@ -19,8 +19,12 @@
         </div>
     </td>
     <td class="text-center">
-        @if($book->genre)
-        <h5 class="badge bg-secondary rounded-pill">{{ $book->genre->genre_name }}</h5>
+        @if($book->genre->isNotEmpty())
+        @foreach($book->genre as $genre)
+        @if($genre->genre_status==1)
+        <h5 class="badge bg-secondary rounded-pill">{{ $genre->genre_name }}</h5>
+        @endif
+        @endforeach
         @endif
     </td>
     <td class="text-center">

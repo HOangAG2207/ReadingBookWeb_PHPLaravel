@@ -4,7 +4,7 @@
 
 @section('admin_content')
 <div class="container-fluid">
-<div class="card mx-2 my-2">
+    <div class="card mx-2 my-2">
         <div class="card-header py-0 pt-1 align-middle">
             <div class="float-start">
                 <h3 class="text-darkcyan fw-bold">CHƯƠNG SÁCH</h3>
@@ -48,16 +48,12 @@
                 </div>
                 {{-- Thuộc sách --}}
                 <div class="form-group mb-3">
-                    <label for="" class="form-label fw-bold">Thuộc sách<span class="text-danger"></span></label>
-                    <div class="input-group">
-                        <label class="input-group-text bg-secondary text-white" for="book_id">Chọn sách</label>
-                        <select class="form-control text-center" name="book_id" id="book_id">
-                            <option value="">---------CHỌN---------</option>
-                            @foreach($data_book as $value => $book)
-                            <option value="{{$book->id}}" {{ ($book->id == $data_chapter->book_id) ? 'selected' : '' }}>{{$book->book_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="multi-select" class="form-label fw-bold">Chương này thuộc sách <span class="text-danger">*</span></label> 
+                    <select id="multi-select" name="book_id">
+                        @foreach($data_book as $book)
+                        <option value="{{$book->id}}" {{ ($book->id == $data_chapter->book_id) ? 'selected' : '' }}>{{$book->book_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 {{-- Nội dung --}}
                 <div class="form-group mb-3">
@@ -83,5 +79,15 @@
         </div>
     </div>
 </div>
+<script>
+    VirtualSelect.init({
+        ele: '#multi-select',
+        placeholder: 'Chọn sách',
+        search: 'true',
+        searchPlaceholderText: 'Tìm kiếm...',
+        noOptionsText: 'Không tìm thấy',
+        noSearchResultsText: 'Không tìm thấy',
+    });
+</script>
 <script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>
 @endsection

@@ -4,7 +4,7 @@
 
 @section('admin_content')
 <div class="container-fluid">
-<div class="card mx-2 my-2">
+    <div class="card mx-2 my-2">
         <div class="card-header py-0 pt-1 align-middle">
             <div class="float-start">
                 <h3 class="text-darkcyan fw-bold">SÁCH</h3>
@@ -38,17 +38,22 @@
                         </div>
                         {{-- Thể loại --}}
                         <div class="form-group mb-3">
-                            <label for="" class="form-label fw-bold">Thể loại<span class="text-danger"></span></label>
-                            <div class="input-group">
-                                <label class="input-group-text bg-secondary text-white" for="genre_id">Chọn thể loại</label>
-                                <select class="form-control text-center" name="genre_id" id="genre_id">
-                                    <option value="">---------CHỌN---------</option>
-                                    @foreach($book_genre as $value => $genre)
-                                    <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
-                                    @endforeach
-                                </select>
+                            <label for="" class="form-label fw-bold">Thể loại<span class="text-danger fw-bolder"> *</span></label>
+                            <div class="row mx-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="selectAll" name="selectAll" id="">
+                                    <label class="form-check-label fw-bold opacity-75" for="">Chọn/Hủy tất cả</label>
+                                </div>
+                                <hr>
+                                @foreach($book_genre as $value => $genre)
+                                <div class="form-check col-md-6 col-lg-4 mb-2">
+                                    <input class="form-check-input" type="checkbox" name="genre[]" id="genre_{{$genre->id}}" value="{{$genre->id}}">
+                                    <label class="form-check-label" for="genre_{{$genre->id}}">{{$genre->genre_name}}</label>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
+                        
                         {{-- Tóm tắt truyện --}}
                         <div class="form-group">
                             <label for="book_description" class="form-label fw-bold">Tóm tắt</label>
@@ -85,6 +90,17 @@
         document.getElementById('image').value = null;
         frame.src = "{{asset('assets/images/no_image.jpg')}}";
     }
+    $('#selectAll').click(function() {
+        if (this.checked) {
+            $(':checkbox').each(function() {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
 </script>
 <script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>
 <script src="{{asset('assets/js/backend/image_preview.js')}}"></script>

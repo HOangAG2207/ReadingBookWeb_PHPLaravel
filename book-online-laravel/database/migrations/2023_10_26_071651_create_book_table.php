@@ -23,18 +23,15 @@ return new class extends Migration
             $table->string('book_image', 255)->nullable();
             $table->tinyInteger('book_status')->default('0');
 
-            $table->unsignedInteger('genre_id')->nullable();
-            $table->foreign('genre_id')
-                ->references('id')->on('genre')
-                ->onDelete('set null');
+            // $table->unsignedInteger('genre_id')->nullable();
+            // $table->foreign('genre_id')
+            //     ->references('id')->on('genre')
+            //     ->onDelete('set null');
 
             $table->unique('book_name');
 
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            // $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            // $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            // $table->timestamps();
             $table->engine = 'InnoDB';
         });
     }

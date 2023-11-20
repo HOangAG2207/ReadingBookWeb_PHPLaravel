@@ -4,7 +4,7 @@
 
 @section('admin_content')
 <div class="container-fluid">
-<div class="card mx-2 my-2">
+    <div class="card mx-2 my-2">
         <div class="card-header py-0 pt-1 align-middle">
             <div class="float-start">
                 <h3 class="text-darkcyan fw-bold">CHƯƠNG SÁCH</h3>
@@ -29,7 +29,7 @@
                 <div class="row mb-3">
                     {{-- Số chương --}}
                     <div class="form-group col-lg-4 col-md-4 col-sm-12">
-                        <label for="chapter_number" class="form-label fw-bold">Số chương <span class="text-danger fw-bolder">*</span></label>
+                        <label for="chapter_number" class="form-label fw-bold">Số chương <span class="text-danger fw-bold">*</span></label>
                         <input type="search" class="form-control @error('chapter_number') is-invalid @enderror" id="chapter_number" name="chapter_number" value="{{ old('chapter_number') }}" placeholder="Ví dụ: 1, 2, 2A, 2B,...">
                         @error('chapter_number')
                         <div class="invalid-feedback"><strong>{{$message}}</strong></div>
@@ -46,20 +46,18 @@
                 </div>
                 {{-- Thuộc sách nào--}}
                 <div class="form-group mb-3">
-                    <label for="" class="form-label fw-bold">Chương này thuộc sách <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <label class="input-group-text bg-secondary text-white" for="book_id">Chọn sách</label>
-                        <select class="form-control text-center select @error('book_id') is-invalid @enderror" name="book_id" id="book_id" data-mdb-filter="true">
-                            <option value="">---------CHỌN---------</option>
-                            @foreach($chapter_book as $value => $book)
-                            <option value="{{$book->id}}">{{$book->book_name}}</option>
-                            @endforeach
-                        </select>
-                        @error('book_id')
-                        <div class="invalid-feedback"><strong>{{$message}}</strong></div>
-                        @enderror
-                    </div>
+                    <label for="multi-select" class="form-label fw-bold">Chương này thuộc sách <span class="text-danger fw-bold">*</span></label>
+                    <select id="multi-select" name="book_id" data-silent-initial-value-set="true" class="@error('book_id') is-invalid @enderror">
+                        <option></option>
+                        @foreach($chapter_book as $book)
+                        <option value="{{$book->id}}">{{$book->book_name}}</option>
+                        @endforeach
+                    </select>
+                    @error('book_id')
+                    <div class="invalid-feedback"><strong>{{$message}}</strong></div>
+                    @enderror
                 </div>
+
                 {{-- Nội dung --}}
                 <div class="form-group mb-3 rounded">
                     <label for="chapter_content" class="form-label fw-bold">Nội dung</label>
@@ -73,5 +71,16 @@
         </div>
     </div>
 </div>
+<script>
+    VirtualSelect.init({
+        ele: '#multi-select',
+        autoSelectFirstOption: false,
+        placeholder: 'Chọn sách',
+        search: 'true',
+        searchPlaceholderText: 'Tìm kiếm...',
+        noOptionsText: 'Không tìm thấy',
+        noSearchResultsText: 'Không tìm thấy',
+    });
+</script>
 <script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>
 @endsection

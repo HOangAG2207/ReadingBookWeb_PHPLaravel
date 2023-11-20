@@ -40,14 +40,18 @@
                         {{-- Thể loại --}}
                         <div class="form-group mb-3">
                             <label for="" class="form-label fw-bold">Thể loại<span class="text-danger"></span></label>
-                            <div class="input-group">
-                                <label class="input-group-text bg-secondary text-white" for="genre_id">Chọn thể loại</label>
-                                <select class="form-control text-center" name="genre_id" id="genre_id">
-                                    <option value="">---------CHỌN---------</option>
-                                    @foreach($data_genre as $value => $genre)
-                                    <option value="{{$genre->id}}" {{ ($genre->id == $data_book->genre_id) ? 'selected' : '' }}>{{$genre->genre_name}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="row ms-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="selectAll" name="selectAll" id="">
+                                    <label class="form-check-label fw-bold opacity-75" for="">Chọn/Hủy tất cả</label>
+                                </div>
+                                <hr>
+                                @foreach($data_genre as $genre)
+                                <div class="form-check col-md-6 col-lg-4 mb-2">
+                                    <input class="form-check-input" type="checkbox" name="genre_id[]" id="genre_{{$genre->id}}" value="{{$genre->id}}" {{ $data_book->genre->contains($genre) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="genre_{{$genre->id}}">{{$genre->genre_name}}</label>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                         {{-- Tóm tắt --}}
@@ -98,6 +102,17 @@
         document.getElementById('image').value = null;
         frame.src = "{{asset('assets/images/no_image.jpg')}}";
     }
+    $('#selectAll').click(function() {
+        if (this.checked) {
+            $(':checkbox').each(function() {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
 </script>
 <script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>
 <script src="{{asset('assets/js/backend/image_preview.js')}}"></script>

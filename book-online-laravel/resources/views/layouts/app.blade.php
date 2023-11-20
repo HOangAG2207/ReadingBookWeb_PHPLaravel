@@ -34,7 +34,7 @@
     <style>
         .navbar-2 {
             /* Style for the second navbar */
-            position: fixed;
+            /* position: fixed; */
             /* top: 0; */
             width: 100%;
             z-index: 100;

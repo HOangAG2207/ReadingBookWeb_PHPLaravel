@@ -69,11 +69,13 @@ class BookController extends Controller
                 // 'book_image.mimes' => 'Hình ảnh phải có đuôi mở rộng: .jpeg, .png, .jpg',
             ],
         );
+
+        
         $book = new Book();
         $book->book_name = $request->book_name;
         $book->book_slug = Str::slug($request->book_name, '-');
         $book->book_description = $request->book_description;
-        $book->genre_id = $request->genre_id;
+        // $book->genre_id = $request->genre_id;
 
         $book->created_at = Carbon::now('Asia/Ho_Chi_Minh');
 
@@ -89,8 +91,9 @@ class BookController extends Controller
         }
         // $book->book_status = $request->book_status; -> mặc định giá trị = 0 (ẩn)
 
-
+        
         $book->save();
+        $book->genre()->sync($request->get('genre'));
         return back()->with('success', 'Đã thêm sách ' . $book->book_name);
     }
 
@@ -113,7 +116,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $data_genre = Genre::orderBy('genre_name', "asc")->get();
+        $data_genre = Genre::orderBy('genre_name', "asc")->where('genre_status', 1)->get();
         $data_book = Book::find($id);
         return view('backend.book.edit')->with(compact('data_book', 'data_genre'));
     }
@@ -148,7 +151,7 @@ class BookController extends Controller
         }
         $book->book_slug = Str::slug($request->book_name, '-');
         $book->book_description = $request->book_description;
-        $book->genre_id = $request->genre_id;
+        // $book->genre_id = $request->genre_id;
 
         $book->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
 
@@ -170,7 +173,7 @@ class BookController extends Controller
         $book->book_status = $request->book_status;
 
         $book->update();
-
+        $book->genre()->sync($request->input('genre_id', []));
         return back()->with('success', 'Đã cập nhật sách');
     }
 

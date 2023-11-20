@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\belongsToMany;
 
 class Genre extends Model
 {
@@ -24,7 +24,7 @@ class Genre extends Model
     ];
     public $timestamps = false;
     
-    public function book(): hasMany{
-        return $this->hasMany(Book::class,'genre_id','id');
+    public function book(): belongsToMany{
+        return $this->belongsToMany(Book::class);
     }
 }

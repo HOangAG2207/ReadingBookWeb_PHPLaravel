@@ -45,7 +45,10 @@ class HomeController extends Controller
     }
     // detail book page
     public function detailBook_page($slug){
-        return view('frontend.detail_book_page');
+        // lấy thể loại đổ ra menu navbar
+        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+        
+        return view('frontend.detail_book_page')->with(compact('genre'));
     }
     // detail chapter page
     public function detailChapter_page($slug_book, $slug_chapter){
