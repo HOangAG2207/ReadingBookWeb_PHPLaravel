@@ -34,24 +34,34 @@ class HomeController extends Controller
         $slide_book = Book::latest()->take(10);
         // lấy danh sách book có chapter mới nhất
         $book_with_lastest_chapter = Book::with(['chapter' => function ($query) {
-            $query->where('chapter_status',1)->orderBy('chapter_number','desc')->latest();
-        }])->where('book_status',1)->orderByRaw('(SELECT MAX(chapter.created_at) FROM chapter WHERE chapter.book_id = book.id) desc')->get();
+            $query->where('chapter_status', 1)->orderBy('chapter_number', 'desc')->latest();
+        }])->where('book_status', 1)->orderByRaw('(SELECT MAX(chapter.created_at) FROM chapter WHERE chapter.book_id = book.id) desc')->get();
 
         return view('frontend.home')->with(compact('genre', 'book_with_lastest_chapter'));
     }
     // genre page
-    public function genre_page($slug){
+    public function genre_page($slug)
+    {
         return view('frontend.genre_page');
     }
     // detail book page
-    public function detailBook_page($slug){
+    public function detailBook_page($slug)
+    {
         // lấy thể loại đổ ra menu navbar
         $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
-        
-        return view('frontend.detail_book_page')->with(compact('genre'));
+        // lấy thông tin sách theo slug
+        $book = Book::where('book_slug', $slug)->where('book_status', 1)->with('genre', 'chapter')->first();
+        // lấy cách chapter thuộc sách
+        $chapter =$book->chapter()->where('chapter_status',1)->orderBy('chapter_number','desc')->get();
+
+        return view('frontend.detail_book_page')->with(compact('genre', 'book', 'chapter'));
     }
     // detail chapter page
-    public function detailChapter_page($slug_book, $slug_chapter){
-        return view('frontend.detail_chapter_page');
+    public function detailChapter_page($slug_book, $slug_chapter)
+    {
+        // lấy thể loại đổ ra menu navbar
+        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+
+        return view('frontend.detail_chapter_page')->with(compact('genre'));
     }
 }

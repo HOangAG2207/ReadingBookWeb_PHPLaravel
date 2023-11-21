@@ -27,12 +27,17 @@ use App\Models\Genre;
 
 Auth::routes();
 // ----------------------Front-End----------------------
-// HOME
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/theloai/{slug}', [HomeController::class, 'genre_page'])->name('home.genre');
-Route::get('/docsach/{slug}', [HomeController::class, 'detailBook_page'])->name('home.detail_book');
-Route::get('/docsach/{slug_book}/{slug_chapter}', [HomeController::class, 'detailChapter_page'])->name('home.detail_chapter');
+//Quản lý Trang home
+Route::controller(HomeController::class)->group(function () {
+    // HOME
+    Route::get('/', 'index')->name('home');
+    // Liệt kê sách theo thể loại
+    Route::get('/theloai/{slug}', 'genre_page')->name('home.genre');
+    // Trang đọc sách và chapter thuộc sách
+    Route::get('/docsach/{slug}', 'detailBook_page')->name('home.detail_book');
+    // Trang đọc chapter
+    Route::get('/docsach/{slug_book}/{slug_chapter}', 'detailChapter_page')->name('home.detail_chapter');
+});
 
 // ----------------------Back-End----------------------
 // ADMIN

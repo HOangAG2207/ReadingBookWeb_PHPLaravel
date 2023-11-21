@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('book_name', 255);
             $table->string('book_slug', 255);
-            $table->mediumInteger('book_description')->nullable();
+            $table->longText('book_description')->nullable();
             $table->string('book_image', 255)->nullable();
             $table->tinyInteger('book_status')->default('0');
 
