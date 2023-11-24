@@ -47,7 +47,7 @@
                 {{-- Thuộc sách nào--}}
                 <div class="form-group mb-3">
                     <label for="multi-select" class="form-label fw-bold">Chương này thuộc sách <span class="text-danger fw-bold">*</span></label>
-                    <select id="multi-select" name="book_id" data-silent-initial-value-set="true" class="@error('book_id') is-invalid @enderror">
+                    <select id="multi-select" name="book_id" class="@error('book_id') is-invalid @enderror">
                         <option></option>
                         @foreach($chapter_book as $book)
                         <option value="{{$book->id}}">{{$book->book_name}}</option>
@@ -80,6 +80,8 @@
         searchPlaceholderText: 'Tìm kiếm...',
         noOptionsText: 'Không tìm thấy',
         noSearchResultsText: 'Không tìm thấy',
+        silentInitialValueSet: false,
+        autoSelectFirstOption: false,
     });
 </script>
 <script src="{{asset('assets/js/backend/ckeditor.js')}}"></script>

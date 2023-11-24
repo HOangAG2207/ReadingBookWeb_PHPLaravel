@@ -59,7 +59,7 @@
                     <div class="d-flex justify-content-start align-items-center mb-2">
                         <medium class="text-secondary fw-bold me-3"><i class="fa-solid fa-eye me-2"></i>Lượt xem:</medium>
                         <medium class="text-secondary">
-                            1.040.203
+                            {{number_format(10000000, 0, ',', '.')}}
                         </medium>
                     </div>
                     <!-- lượt thích -->
@@ -75,10 +75,16 @@
                     </div>
                     <hr>
                     <!-- đọc truyện -->
+                    @if($chapter->count()!=0)
                     <div class="d-flex justify-content-start align-items-center mb-2">
-                        <a href="" class="btn btn-sm mx-3 fw-bold text-white" style="background: darkcyan;">Đọc từ đầu</a>
-                        <a href="" class="btn btn-sm mx-3 fw-bold text-white" style="background: darkcyan;">Đọc mới nhất</a>
+                        <a href="{{ route('home.detail_chapter',[$book->book_slug,$first_chapter->chapter_slug]) }}" class="btn btn-sm mx-3 fw-bold text-white" style="background: darkcyan;">Đọc từ đầu</a>
+                        <a href="{{ route('home.detail_chapter',[$book->book_slug,$last_chapter->chapter_slug]) }}" class="btn btn-sm mx-3 fw-bold text-white" style="background: darkcyan;">Đọc mới nhất</a>
                     </div>
+                    @else
+                    <div class="d-flex justify-content-start align-items-center mb-2">
+                        <a class="fw-bold text-decoration-none">Sách đang cập nhật...</a>
+                    </div>
+                    @endif
                 </div>
             </div>
             <!-- content -->
@@ -103,7 +109,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($chapter as $chapter)
+                            @forelse($chapter as $chapter)
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route('home.detail_chapter',[$book->book_slug,$chapter->chapter_slug]) }}" class="text-decoration-none">
@@ -116,14 +122,18 @@
                                     <small class="opacity-75 chapter-time">
                                         <i class="fa-regular fa-clock me-1"></i>
                                         @if (Carbon\Carbon::parse($chapter->created_at)->diffInYears(Carbon\Carbon::now()) >= 1)
-                                            {{ $chapter->created_at->format('d-m-Y') }}
+                                        {{ $chapter->created_at->format('d-m-Y') }}
                                         @else
-                                            {{ $chapter->created_at->diffForHumans() }}
+                                        {{ $chapter->created_at->diffForHumans() }}
                                         @endif
                                     </small>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="3"><small class="opacity-75">Đang cập nhật chương...</small></td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

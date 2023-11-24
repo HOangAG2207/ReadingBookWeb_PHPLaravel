@@ -34,11 +34,11 @@
                                     <small class="opacity-50 chapter-time">
                                         <i class="fa-regular fa-clock me-1"></i>
                                         @if (Carbon\Carbon::parse($chapter->created_at)->diffInYears(Carbon\Carbon::now()) >= 1)
-                                            {{ $chapter->created_at->format('d-m-Y') }}
+                                        {{ $chapter->created_at->format('d-m-Y') }}
                                         @else
-                                            {{ $chapter->created_at->diffForHumans() }}
+                                        {{ $chapter->created_at->diffForHumans() }}
                                         @endif
-                                            
+
                                     </small>
                                 </div>
                             </div>

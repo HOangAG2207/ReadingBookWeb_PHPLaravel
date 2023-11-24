@@ -22,6 +22,9 @@
     <!-- carousel -->
     <link href="{{ asset('owl-carousel/css/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('owl-carousel/css/owl.theme.default.min.css') }}" rel="stylesheet">
+    <!-- virtual select -->
+    <link rel="stylesheet" href="/virtual-select/virtual-select.min.css" />
+    <script src="/virtual-select/virtual-select.min.js"></script>
 
     <!-- SCRIPT -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
@@ -79,6 +82,28 @@
         .list-group a:hover {
             background: darkcyan;
             color: white;
+        }
+
+        #multi-select {
+            display: block;
+            max-width: 80%;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 3px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .vscomp-toggle-button {
+            border-radius: 0.375rem;
+            border: none;
         }
     </style>
 </head>

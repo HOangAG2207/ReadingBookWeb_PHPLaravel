@@ -52,16 +52,34 @@ class HomeController extends Controller
         // lấy thông tin sách theo slug
         $book = Book::where('book_slug', $slug)->where('book_status', 1)->with('genre', 'chapter')->first();
         // lấy cách chapter thuộc sách
-        $chapter =$book->chapter()->where('chapter_status',1)->orderBy('chapter_number','desc')->get();
+        $chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->get();
+        // Lấy chapter đầu tiên
+        $first_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'asc')->first();
+        // Lấy chapter mới nhất
+        $last_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->first();
 
-        return view('frontend.detail_book_page')->with(compact('genre', 'book', 'chapter'));
+        return view('frontend.detail_book_page')->with(compact('genre', 'book', 'chapter', 'first_chapter', 'last_chapter'));
     }
     // detail chapter page
     public function detailChapter_page($slug_book, $slug_chapter)
     {
         // lấy thể loại đổ ra menu navbar
         $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
-
-        return view('frontend.detail_chapter_page')->with(compact('genre'));
+        // lấy thông tin sách theo slug
+        $book = Book::where('book_slug', $slug_book)->where('book_status', 1)->with('genre', 'chapter')->first();
+        // lấy thông tin chapter hiện tại
+        $current_chapter = $book->chapter()->where('chapter_status', 1)->where('chapter_slug', $slug_chapter)->first();
+        // lấy danh sách chapter 
+        $chapter_list = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->get();
+        // Lấy chapter sau current chapter
+        $next_chapter = $book->chapter()->where('chapter_status', 1)->where('id','>', $current_chapter->id)->min("chapter_slug");
+        // Lấy chapter trước current chapter
+        $previous_chapter = $book->chapter()->where('chapter_status', 1)->where('id','<', $current_chapter->id)->max("chapter_slug");
+        // Lấy chapter đầu tiên
+        $first_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'asc')->first();
+        // Lấy chapter mới nhất
+        $last_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->first();
+        
+        return view('frontend.detail_chapter_page')->with(compact('genre','book','current_chapter', 'chapter_list', 'next_chapter','previous_chapter','first_chapter','last_chapter'));
     }
 }
