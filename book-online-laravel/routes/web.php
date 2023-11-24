@@ -32,7 +32,7 @@ Route::controller(HomeController::class)->group(function () {
     // HOME
     Route::get('/', 'index')->name('home');
     // Liệt kê sách theo thể loại
-    Route::get('/theloai/{slug}', 'genre_page')->name('home.genre');
+    Route::get('/theloai/{slug_genre}', 'genre_page')->name('home.genre');
     // Trang đọc sách và chapter thuộc sách
     Route::get('/docsach/{slug}', 'detailBook_page')->name('home.detail_book');
     // Trang đọc chapter

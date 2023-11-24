@@ -12,9 +12,8 @@
                 <div class="card-header pb-0 pt-2 border-0">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" aria-current="page"><a href="{{ route('home') }}" class="text-decoration-none">Trang chủ</a></li>
-                            <!-- <li class="breadcrumb-item text-darkcyan fw-bold"><a>Trang chủ</a></li> -->
-                            <li class="breadcrumb-item fw-bold"><a href="" class="text-decoration-none">{{$book->book_name}}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$book->book_name}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -59,7 +58,7 @@
                     <div class="d-flex justify-content-start align-items-center mb-2">
                         <medium class="text-secondary fw-bold me-3"><i class="fa-solid fa-eye me-2"></i>Lượt xem:</medium>
                         <medium class="text-secondary">
-                            {{number_format(10000000, 0, ',', '.')}}
+                            {{number_format($book->book_view, 0, ',', '.')}}
                         </medium>
                     </div>
                     <!-- lượt thích -->
@@ -117,7 +116,7 @@
                                         {{$chapter->chapter_name}}
                                     </a>
                                 </th>
-                                <td class="text-end"><small class="opacity-75 chapter-time"><i class="fa-solid fa-eye me-1"></i>1200</small></td>
+                                <td class="text-end"><small class="opacity-75 chapter-time"><i class="fa-solid fa-eye me-1"></i>12000000</small></td>
                                 <td class="text-end">
                                     <small class="opacity-75 chapter-time">
                                         <i class="fa-regular fa-clock me-1"></i>

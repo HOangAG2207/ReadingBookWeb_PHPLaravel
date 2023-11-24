@@ -1,8 +1,13 @@
 <div class="album my-3">
     <div class="container">
+        @if($book_with_lastest_chapter->count()==0)
+        <div class="d-flex align-items-center mb-2 ms-3">
+            <p class="text-decoration-none">Đang cập nhật sách...</p>
+        </div>
+        @endif
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-3">
             @foreach($book_with_lastest_chapter as $value => $book)
-            @if($book->chapter->count() > 0)
+            {{--@if($book->chapter->count() > 0)--}}
             <div class="col">
                 <div class="card shadow-md border-0">
                     <div class="" style="position:relative;">
@@ -11,7 +16,18 @@
                                         : asset('storage/uploads/Sach/'.$book->book_image) }}" class="rounded card-img-bottom object-fit-cover" width="130px" height="200px">
                         <div class="content bg-secondary w-100 text-white text-center" style="position:absolute; bottom:0;opacity:0.9">
                             <div class="book_content d-flex justify-content-center align-items-center my-1">
-                                <small class=""><i class="fa-solid fa-eye"></i> 1200</small>
+                                <small class="">
+                                    <i class="fa-solid fa-eye me-1"></i>
+                                    @if ($book->book_view > 10000000)
+                                    {{number_format($book->book_view / 1000000, 0, '.', '') . 'M'}}
+                                    @elseif ($book->book_view > 1000000)
+                                    {{number_format($book->book_view / 1000000, 3, '.', '') . 'K'}}
+                                    @elseif ($book->book_view > 1000)
+                                    {{number_format($book->book_view / 1000, 0, '.', '') . 'K'}}
+                                    @else
+                                    {{number_format($book->book_view, 0, '.', '')}}
+                                    @endif
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -46,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            @endif
+            {{--@endif--}}
             @endforeach
         </div>
     </div>

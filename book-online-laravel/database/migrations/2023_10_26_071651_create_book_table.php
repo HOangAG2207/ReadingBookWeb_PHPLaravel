@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('book_description')->nullable();
             $table->string('book_image', 255)->nullable();
             $table->tinyInteger('book_status')->default('0');
+            $table->bigInteger('book_view')->default('0');
 
             // $table->unsignedInteger('genre_id')->nullable();
             // $table->foreign('genre_id')

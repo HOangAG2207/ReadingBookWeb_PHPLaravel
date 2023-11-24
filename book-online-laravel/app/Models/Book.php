@@ -20,7 +20,7 @@ class Book extends Model
         'book_description',
         'book_image',
         'book_status',
-        // 'genre_id',
+        'book_view',
         'created_at',
         'updated_at',
     ];

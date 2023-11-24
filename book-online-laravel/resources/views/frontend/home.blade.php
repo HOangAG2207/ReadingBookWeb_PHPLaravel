@@ -14,7 +14,7 @@
         <div class="col-12 col-lg-9">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="ms-3 fw-bold title"><i class="fa-solid fa-list" style="font-size: 20px;"></i> Mới cập nhật</h4>
-                <a href="" class="ms-3 fw-bold title me-5 text-decoration-none">Xem tất cả <i class="fa-solid fa-chevron-right" style="font-size: 14px;"></i></a>
+                <!-- <a href="" class="ms-3 fw-bold title me-5 text-decoration-none">Xem tất cả <i class="fa-solid fa-chevron-right" style="font-size: 14px;"></i></a> -->
             </div>
             @include('frontend.includes.newUpdateBook')
         </div>

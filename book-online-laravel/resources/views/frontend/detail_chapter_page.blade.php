@@ -10,12 +10,14 @@
         <div class="card-header pb-0 pt-2 border-0">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ route('home') }}" class="text-decoration-none">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Trang chủ</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('home.detail_book',[$book->book_slug]) }}" class="text-decoration-none">{{$book->book_name}}</a></li>
-                    <li class="breadcrumb-item fw-bold"><a href="" class="text-decoration-none">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span class="ms-2 text-dark fw-normal">
                             Chương {{$current_chapter->chapter_number}}{{$current_chapter->chapter_name!=''?':':''}}
                             {{$current_chapter->chapter_name}}
-                        </a></li>
+                        </span>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -126,16 +128,6 @@
     </div>
 </div>
 <script>
-    VirtualSelect.init({
-        ele: '#multi-select',
-        search: 'true',
-        searchPlaceholderText: 'Tìm kiếm chương...',
-        noOptionsText: 'Không tìm thấy',
-        noSearchResultsText: 'Không tìm thấy',
-        hideClearButton: true,
-        silentInitialValueSet: false,
-        autoSelectFirstOption: false,
-    });
     // Start page
     $(document).ready(function() {
         var url = window.location.href;
