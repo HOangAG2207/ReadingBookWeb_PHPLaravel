@@ -9,7 +9,6 @@ use Storage;
 use Carbon\Carbon;
 
 use App\Models\{Genre};
-use Psy\Readline\Hoa\Console;
 
 class GenreController extends Controller
 {

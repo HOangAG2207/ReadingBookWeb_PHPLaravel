@@ -41,7 +41,8 @@
         @for($i=1;$i<=5;$i++) <div class="d-flex align-items-center justify-content-center my-3">
             <div class="me-2 rounded-circle p-1">
                 <a class="circle text-decoration-none fw-bold text-{{$i<=3?$text_color[$i-1]:'secondary'}}" style="font-size:18px;">
-                    @if($i<10) 0{{$i}} @else {{$i}} @endif </a>
+                    @if($i<10) 0{{$i}} @else {{$i}} @endif 
+                </a>
             </div>
             <div class="me-2">
                 <img id="" src="{{asset('assets/images/no_image.jpg')}}" class="shadow-sm rounded card-img-bottom object-fit-cover" style="height: 60px; width:50px;" />

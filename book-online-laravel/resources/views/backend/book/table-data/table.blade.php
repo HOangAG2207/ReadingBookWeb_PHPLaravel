@@ -27,6 +27,11 @@
         @endforeach
         @endif
     </td>
+    <td width="3%" class="text-center">
+        <a class="btn rounded-circle">
+            <i class="fa-solid fa-square-pen text-primary"></i>
+        </a>
+    </td>
     <td class="text-center">
         <a class="btn btn-sm fw-bold btn-{{$book->book_status==1?'success':'danger'}} change-status" style="width:80px;height:30px;" data-id="{{$book->id}}" data-name="{{$book->book_name}}">
             @if($book->book_status==1)

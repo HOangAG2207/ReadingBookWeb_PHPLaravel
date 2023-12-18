@@ -15,10 +15,26 @@ class ChapterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data_chapter=Chapter::with('book')->orderBy('created_at', 'desc')->paginate(5);
-        return view('backend.chapter.index')->with(compact('data_chapter'));
+        $all = Chapter::all();
+        $book = Book::orderBy('book_name','asc')->get();
+        // $data_chapter=Chapter::with('book')->orderBy('created_at', 'desc')->paginate(5);
+        $data_chapter = Chapter::query()
+        ->when($request->status !=null, function($query) use($request){
+            return $query->where('chapter_status',$request->status);
+        })
+        ->when($request->book_id !=null, function($query) use($request){
+            return $query->where('book_id','like','%'.$request->book_id.'%');
+        })
+        ->when($request->searchBox !=null, function($query) use($request){
+            return $query->where('chapter_name','like','%'.$request->searchBox.'%')
+            ->orWhere('chapter_number','like','%'.$request->searchBox.'%');
+        })
+        ->with('book')
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
+        return view('backend.chapter.index')->with(compact('data_chapter','all','book'));
     }
 
     /**
@@ -143,16 +159,28 @@ class ChapterController extends Controller
      */
     public function destroy($id)
     {
-        $data = Chapter::find($id);
-        $data->delete();
-        return back()->with('success', 'Đã xóa Chương '.$data->chapter_number.': '.$data->chapter_name);
+        // $data = Chapter::find($id);
+        // $data->delete();
+        // return back()->with('success', 'Đã xóa Chương '.$data->chapter_number.': '.$data->chapter_name);
     }
-    public function changeStatus($id)
+    public function delete(Request $request)
     {
-        $data = Chapter::find($id);
+        $data = Chapter::find($request->id);
+        $data->delete();
+        return response()->json(['status' => 'success']);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(Request $request)
+    {
+        $data = Chapter::find($request->id);
         $data->chapter_status = !$data->chapter_status;
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
-        return back()->with('success', 'Đã thay đổi trạng thái Chương '.$data->chapter_number .': '.$data->chapter_name);
+        return response()->json(['status' => 'success']);
     }
 }

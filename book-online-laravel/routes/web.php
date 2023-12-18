@@ -75,6 +75,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
 
     //Quản lý chapter
-    Route::resource('/chapter', ChapterController::class);
-    Route::get('/chapter/changeStatus/{id}', [ChapterController::class, 'changeStatus'])->name('chapter.changeStatus');
+    Route::controller(chapterController::class)->group(function () {
+        Route::get('chapter', 'index')->name('chapter.index'); // index page
+
+        Route::get('chapter/create', 'create')->name('chapter.create'); // go to create new page
+        Route::post('chapter/store', 'store')->name('chapter.store'); // submit new create
+
+        Route::get('chapter/{chapter}/edit', 'edit')->name('chapter.edit'); // go to edit page
+        Route::put('chapter/{chapter}', 'update')->name('chapter.update'); // update new edit
+
+        Route::post('chapter/delete', 'delete')->name('chapter.delete'); // delete
+        Route::post('chapter/changeStatus', 'changeStatus')->name('chapter.changeStatus'); // change status
+    });
+    // Route::resource('/chapter', ChapterController::class);
+    // Route::get('/chapter/changeStatus/{id}', [ChapterController::class, 'changeStatus'])->name('chapter.changeStatus');
+
 });

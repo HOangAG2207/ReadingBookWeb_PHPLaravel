@@ -28,22 +28,20 @@ class HomeController extends Controller
     // HOME PAGE
     public function index()
     {
-        // lấy thể loại đổ ra menu navbar
-        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+        // lấy thể loại đổ ra menu navbar -> App\Http\Providers\GenreViewServiceProvider
         // lấy danh sách book slide
         $slide_book = Book::latest()->take(10);
         // lấy danh sách book có chapter mới nhất
         $book_with_lastest_chapter = Book::with(['chapter' => function ($query) {
             $query->where('chapter_status', 1)->orderBy('chapter_number', 'desc')->latest();
         }])->where('book_status', 1)->orderByRaw('(SELECT MAX(chapter.created_at) FROM chapter WHERE chapter.book_id = book.id) desc')->get();
-// dd($book_with_lastest_chapter);
-        return view('frontend.home')->with(compact('genre', 'book_with_lastest_chapter'));
+        // dd($book_with_lastest_chapter);
+        return view('frontend.home')->with(compact('book_with_lastest_chapter'));
     }
     // genre page
     public function genre_page($slug_genre)
     {
-        // lấy thể loại đổ ra menu navbar
-        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+        // lấy thể loại đổ ra menu navbar -> App\Http\Providers\GenreViewServiceProvider
         // lấy thông tin sách theo slug
         $current_genre = Genre::where('genre_slug', $slug_genre)->where('genre_status', 1)->first();
         // lấy dánh sách book theo thể loại (genre)
@@ -52,13 +50,12 @@ class HomeController extends Controller
         })->with(['chapter' => function ($query) {
             $query->where('chapter_status', 1)->orderBy('chapter_number', 'desc')->latest();
         }])->where('book_status', 1)->orderByRaw('(SELECT MAX(chapter.created_at) FROM chapter WHERE chapter.book_id = book.id) desc')->get();
-        return view('frontend.book_with_genre')->with(compact('genre', 'current_genre', 'book_with_genre'));
+        return view('frontend.book_with_genre')->with(compact('current_genre', 'book_with_genre'));
     }
     // detail book page
     public function detailBook_page($slug)
     {
-        // lấy thể loại đổ ra menu navbar
-        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+        // lấy thể loại đổ ra menu navbar -> App\Http\Providers\GenreViewServiceProvider
         // lấy thông tin sách theo slug
         $book = Book::where('book_slug', $slug)->where('book_status', 1)->with('genre', 'chapter')->first();
         $book->increment('book_view');
@@ -69,13 +66,12 @@ class HomeController extends Controller
         // Lấy chapter mới nhất
         $last_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->first();
 
-        return view('frontend.detail_book_page')->with(compact('genre', 'book', 'chapter', 'first_chapter', 'last_chapter'));
+        return view('frontend.detail_book_page')->with(compact('book', 'chapter', 'first_chapter', 'last_chapter'));
     }
     // detail chapter page
     public function detailChapter_page($slug_book, $slug_chapter)
     {
-        // lấy thể loại đổ ra menu navbar
-        $genre = Genre::orderBy('genre_name', 'asc')->where('genre_status', 1)->get();
+        // lấy thể loại đổ ra menu navbar -> App\Http\Providers\GenreViewServiceProvider
         // lấy thông tin sách theo slug
         $book = Book::where('book_slug', $slug_book)->where('book_status', 1)->with('genre', 'chapter')->first();
         // lấy thông tin chapter hiện tại
@@ -91,6 +87,6 @@ class HomeController extends Controller
         // Lấy chapter mới nhất
         $last_chapter = $book->chapter()->where('chapter_status', 1)->orderBy('id', 'desc')->first();
 
-        return view('frontend.detail_chapter_page')->with(compact('genre', 'book', 'current_chapter', 'chapter_list', 'next_chapter', 'previous_chapter', 'first_chapter', 'last_chapter'));
+        return view('frontend.detail_chapter_page')->with(compact('book', 'current_chapter', 'chapter_list', 'next_chapter', 'previous_chapter', 'first_chapter', 'last_chapter'));
     }
 }

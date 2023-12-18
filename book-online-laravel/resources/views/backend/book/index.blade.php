@@ -29,25 +29,27 @@
                 <div class="form-group">
                     <div class="input-group">
                         <label class="input-group-text fw-bold" for="status" style="border: solid 2px darkcyan; background:lightgrey;color:darkcyan">Trạng thái</label>
-                        <select class="form-control text-center" name="status" id="status-filter" style="border: solid 2px darkcyan;">
+                        <select class="form-select text-center" name="status" id="status-filter" style="border: solid 2px darkcyan;">
                             <option value="">Tất cả</option>
                             <option value="1" {{Request::get('status')=='1'?'selected':''}}>HIỂN THỊ</option>
                             <option value="0" {{Request::get('status')=='0'?'selected':''}}>ẨN</option>
                         </select>
+
                     </div>
                 </div>
             </div>
             <!-- search box -->
             <div class="form-group mt-3 px-3">
                 <div class="input-group w-auto my-auto rounded" style="border: solid 2px darkcyan;background: darkcyan;">
-                    <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i>
-                    </span>
-                    <input name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" type="text" class="form-control border-0" placeholder="Nhập từ khóa để tìm kiếm..." />
-                    <button type="submit" class="btn btn-sm btn-primary fw-bold" style="border: solid 2px darkcyan; background:darkcyan;">Tìm kiếm - lọc danh sách</button>
+                    <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i></span>
+                    <input name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" type="text" class="form-control border-0" placeholder="Tìm kiếm&hellip;" />
                 </div>
             </div>
+            <hr>
+            <div class="float-end px-3">
+                <button type="submit" class="btn btn-sm btn-primary fw-bold shadow" style="border: solid 2px darkcyan; background:darkcyan;">Tìm kiếm - lọc danh sách</button>
+            </div>
         </form>
-        <hr>
         <div class="table-responsive" id="div-table">
             <div class="mx-3">
                 <h5>Số lượng: <span class="badge rounded-pill text-bg-secondary">{{ $data_book->total() }} trên {{ $all->count() }}</span></h5>
@@ -58,7 +60,7 @@
                         <th width="5%"></th>
                         <th width="5%">#</th>
                         <th width="20%">Tên sách</th>
-                        <th width="20%">Thể loại</th>
+                        <th width="20%" colspan="2">Thể loại</th>
                         <th width="5%">Trạng<br>thái</th>
                         <th width="10%">Ngày<br>tạo</th>
                         <th width="10%">Ngày<br>cập nhật</th>

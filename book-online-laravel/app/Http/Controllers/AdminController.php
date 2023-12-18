@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{Genre,Book,Chapter};
 
 class AdminController extends Controller
 {
@@ -23,6 +24,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard');
+        $genre_count = Genre::all();
+        $book_count = Book::all();
+        $chapter_count = Chapter::all();
+        return view('backend.dashboard')->with(compact('genre_count','book_count','chapter_count'));
     }
 }
