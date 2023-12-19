@@ -47,8 +47,8 @@
                                 <div class="px-3 pt-3 d-flex">
                                     <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle me-3" height="40" alt="" loading="lazy" />
                                     <div>
-                                        <h6 class="mb-0 fw-bold">{{ Auth::user()->name }}</h6>
-                                        <p class="mb-2 text-secondary">{{ Auth::user()->email }}</p>
+                                        <h6 class="mb-0 fw-bold">{{ Auth::guard('web')->user()->name }}</h6>
+                                        <p class="mb-2 text-secondary">{{ Auth::guard('web')->user()->email }}</p>
                                         <a class="mb-0 text-primary" href=""><i class="fa-solid fa-address-book me-1"></i>Thông tin cá nhân</a>
                                     </div>
                                 </div>

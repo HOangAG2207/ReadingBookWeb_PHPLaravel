@@ -53,7 +53,7 @@
         </form>
         <div class="table-responsive" id="div-table">
             <div class="mx-3">
-                <h5>Số lượng: <span class="badge rounded-pill text-bg-secondary">{{ $data_genre->total() }} trên {{ $all->count() }}</span></h5>
+                <h5>Số lượng: <span class="badge rounded-pill text-bg-secondary">{{ $data_genre->total() }} trên {{ $all_count }}</span></h5>
             </div>
             <table class="table table-bordered table-hover table-sm" id="table">
                 <thead>

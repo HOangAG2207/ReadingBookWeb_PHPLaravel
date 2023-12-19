@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('chapter', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->id()->unsigned();
 
             $table->string('chapter_number', 50);
             $table->string('chapter_slug', 255);

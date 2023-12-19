@@ -23,7 +23,7 @@ class GenreController extends Controller
         // $data_genre = Genre::query()->orderBy('created_at', 'desc')->paginate(5);
         // return view('backend.genre.index', compact('data_genre'));
         // return ($request->status.' a '.$request->searchBox);
-        $all = Genre::all();
+        $all_count = Genre::count();
         $data_genre = Genre::query()
         ->when($request->status !=null, function($query) use($request){
             return $query->where('genre_status',$request->status);
@@ -34,7 +34,7 @@ class GenreController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(5);
         
-        return view('backend.genre.index', compact('data_genre','all'));
+        return view('backend.genre.index', compact('data_genre','all_count'));
     }
 
     /**

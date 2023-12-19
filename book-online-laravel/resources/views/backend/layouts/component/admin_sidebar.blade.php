@@ -7,6 +7,25 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     THỐNG KÊ
                 </a>
+                <div class="sb-sidenav-menu-heading text-light">CÀI ĐẶT</div>
+                <!-- menu book_genre (the loai sach) -->
+                <a id="text-color" class="nav-link {{Request::routeIs('admin.personal')||Request::routeIs('admin.changePassword')?'collapse active':'collapsed'}} fw-bold" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                    Tài khoản
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse {{Request::routeIs('admin.personal')||Request::routeIs('admin.changePassword')?'show':''}}" id="collapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link {{Request::routeIs('admin.personal')?'active':''}}" href="{{ route('admin.personal') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
+                            Thông tin cá nhân
+                        </a>
+                        <a class="nav-link {{Request::routeIs('admin.changePassword')?'active':''}}" href="{{ route('admin.changePassword') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
+                            Đổi mật khẩu
+                        </a>
+                    </nav>
+                </div>
                 <div class="sb-sidenav-menu-heading text-light">QUẢN LÝ SÁCH</div>
                 <!-- menu book_genre (the loai sach) -->
                 <a id="text-color" class="nav-link {{Request::routeIs('genre.index')||Request::routeIs('genre.create')?'collapse active':'collapsed'}} fw-bold" href="#" data-bs-toggle="collapse" data-bs-target="#collapseGenre" aria-expanded="false" aria-controls="collapseLayouts">

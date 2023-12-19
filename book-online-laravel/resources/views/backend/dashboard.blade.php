@@ -36,7 +36,7 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <div>
                                     <!-- text -->
-                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-secondary mark">{{number_format($chapter_count->count(), 0, ',', '.')}}</h2>
+                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-secondary mark">{{number_format($chapter_count, 0, ',', '.')}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <div>
                                     <!-- text -->
-                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-primary mark">{{number_format($genre_count->count(), 0, ',', '.')}}</h2>
+                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-primary mark">{{number_format($genre_count, 0, ',', '.')}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <div>
                                     <!-- text -->
-                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-success mark">{{number_format($book_count->count(), 0, ',', '.')}}</h2>
+                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-success mark">{{number_format($book_count, 0, ',', '.')}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <div>
                                     <!-- text -->
-                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-info mark">{{number_format($chapter_count->count(), 0, ',', '.')}}</h2>
+                                    <h2 class="mb-2 text-center rounded px-2 py-1 text-info mark">{{number_format($chapter_count, 0, ',', '.')}}</h2>
                                 </div>
                             </div>
                         </div>

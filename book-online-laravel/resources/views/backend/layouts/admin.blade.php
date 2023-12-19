@@ -77,6 +77,7 @@
             {{-- @include('backend.layouts.include.admin_footer') --}}
         </div>
     </div>
+    @include('backend.layouts.component.admin_footer')
     <!-- yield -->
     <script>
         toastr.options = {
